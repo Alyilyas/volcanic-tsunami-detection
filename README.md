@@ -62,29 +62,21 @@ To ensure the methods are transparent and reproducible, a sample dataset is incl
 
 
 
-# 1. Clone the repository
+1. Clone the repository
 git clone https://github.com/[YourUsername]/volcanic-tsunami-detection.git
 cd volcanic-tsunami-detection
 
-# 2. Create a Python virtual environment
+2. Create a Python virtual environment
 python -m venv venv
 
-# 3. Activate the virtual environment
-# On Windows
+3. Activate the virtual environment
+On Windows:
 venv\Scripts\activate
-# On macOS/Linux
+On macOS/Linux:
 source venv/bin/activate
 
-# 4. Install the required packages
+4. Install the required packages
 pip install -r requirements.txt
-
-
-
-\# 2. Create and activate the Conda environment
-
-conda env create -f environment.yml
-
-conda activate tsunami-detection-env
 
 ```
 
