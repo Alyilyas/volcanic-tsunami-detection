@@ -91,25 +91,12 @@ To set up the necessary Python environment and dependencies, it is recommended t
 
 
 
-\## 🚀 How to Run the Analysis
-
-
-
-All analysis parameters are controlled from the `CONFIG` dictionary at the top of the `generate\_spectral\_detection\_plot.py` script. You can run the analysis directly from your terminal.
-
-
-
-\### Basic Usage
-
-
-
+## 🚀 How to Run the Analysis
+...
 To run the default analysis (for station `SBJI`, component `BHE`, with non-overlapping windows):
 
-
-
 ```bash
-
-python code/generate\_spectral\_detection\_plot.py
+python code/generate_spectral_detection_plot.py
 
 ```
 
