@@ -62,17 +62,21 @@ To ensure the methods are transparent and reproducible, a sample dataset is incl
 
 
 
-To set up the necessary Python environment and dependencies, please use the provided `environment.yml` file with Conda. This ensures that you have the exact versions of the libraries used in this study.
-
-
-
-```bash
-
-\# 1. Clone the repository
-
-git clone \[https://github.com/](https://github.com/)\[YourUsername]/volcanic-tsunami-detection.git
-
+# 1. Clone the repository
+git clone https://github.com/[YourUsername]/volcanic-tsunami-detection.git
 cd volcanic-tsunami-detection
+
+# 2. Create a Python virtual environment
+python -m venv venv
+
+# 3. Activate the virtual environment
+# On Windows
+venv\Scripts\activate
+# On macOS/Linux
+source venv/bin/activate
+
+# 4. Install the required packages
+pip install -r requirements.txt
 
 
 
