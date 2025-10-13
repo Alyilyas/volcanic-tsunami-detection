@@ -60,7 +60,7 @@ To set up the necessary Python environment and dependencies, it is recommended t
 
 1.  **Clone the Repository**
     ```bash
-    git clone [https://github.com/](https://github.com/)[YourUsername]/volcanic-tsunami-detection.git
+    git clone [https://github.com/](https://github.com/)Alyilyas/volcanic-tsunami-detection.git
     cd volcanic-tsunami-detection
     ```
 
