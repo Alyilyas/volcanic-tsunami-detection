@@ -166,7 +166,8 @@ CONFIG = {
 
 3\.  Run the script from your terminal:
 
-```bash python code/generate\_spectral\_detection\_plot.py
+```bash 
+python code/generate\_spectral\_detection\_plot.py
 
 ```
 
