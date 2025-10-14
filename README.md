@@ -146,23 +146,23 @@ To reproduce all the figures in the manuscript, simply modify the parameters in 
 
 2\.  Modify the `CONFIG` dictionary:
 
-&nbsp;   ```python
+```python
 
-&nbsp;   CONFIG = {
+CONFIG = {
 
-&nbsp;       # ...
+# ...
 
-&nbsp;       "step": 20,              # Set to 20 for 1-second overlap
+"step": 20,              # Set to 20 for 1-second overlap
 
-&nbsp;       "station": 'CGJI',
+"station": 'CGJI',
 
-&nbsp;       "component": 'BHZ',
+"component": 'BHZ',
 
-&nbsp;       # ...
+# ...
 
-&nbsp;   }
+}
 
-&nbsp;   ```
+```
 
 3\.  Run the script from your terminal:
 
