@@ -177,7 +177,7 @@ python code/generate\_spectral\_detection\_plot.py
 
 
 
-\## 📝 Citation
+## 📝 Citation
 
 
 
