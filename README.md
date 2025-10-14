@@ -114,7 +114,7 @@ To reproduce all the figures in the manuscript, simply modify the parameters in 
 
 
 
-\*\*Key Parameters to Change:\*\*
+\### Key Parameters to Change:
 
 
 
@@ -138,7 +138,7 @@ To reproduce all the figures in the manuscript, simply modify the parameters in 
 
 
 
-\*\*Example: Reproducing the Overlapping Window Plot for Station CGJI (BHZ component)\*\*
+\### Example: Reproducing the Overlapping Window Plot for Station CGJI (BHZ component)
 
 
 
