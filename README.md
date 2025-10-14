@@ -24,7 +24,7 @@ The core of the methodology involves:
 
 
 
-## 📂 Repository Structure
+## 📂 Repository structure
 
 
 
@@ -34,7 +34,7 @@ The core of the methodology involves:
 
 \-   `/output/figures`: The default directory where generated figures are saved.
 
-\-   `environment.yml`: The Conda environment file listing all required packages for reproducibility.
+\-   `requirements.txt`: The file listing all required Python packages for reproducibility.
 
 
 
@@ -42,7 +42,7 @@ The core of the methodology involves:
 
 
 
-## 📊 Data Availability
+## 📊 Data availability
 
 
 
