@@ -24,7 +24,7 @@ The core of the methodology involves:
 
 
 
-\## 📂 Repository Structure
+## 📂 Repository Structure
 
 
 
@@ -42,7 +42,7 @@ The core of the methodology involves:
 
 
 
-\## 📊 Data Availability
+## 📊 Data Availability
 
 
 
@@ -91,7 +91,7 @@ To set up the necessary Python environment and dependencies, it is recommended t
 
 
 
-## 🚀 How to Run the Analysis
+## 🚀 How to run the analysis
 ...
 To run the default analysis (for station `SBJI`, component `BHE`, with non-overlapping windows):
 
