@@ -28,7 +28,7 @@ The core of the methodology involves:
 
 
 
-\-   `/code`: Contains the main Python script `generate\_spectral\_detection\_plot.py`.
+\-   `/code`: Contains the main Python script `generate\_spectral\_detection\_plot.py`for producing Fig 11 & 12 (also figures in Appendix B) to determine the system threshold.
 
 \-   `/data`: Contains the sample dataset used to run the analysis.
 
