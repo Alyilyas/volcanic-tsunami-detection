@@ -90,7 +90,10 @@ On macOS, the best way to manage developer tools is with **Homebrew**, a package
     pip3 install -r requirements.txt
     ```
 
----### 1. Prerequisites
+---
+### Windows Guide ❖
+
+#### 1. Prerequisites
 
 Before you begin, you need to install Git and a specific version of Python.
 
