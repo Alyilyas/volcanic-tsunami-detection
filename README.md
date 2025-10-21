@@ -50,9 +50,47 @@ To ensure the methods are transparent and reproducible, a sample dataset is incl
 
 ## ⚙️ Setup Instructions
 
-This guide provides step-by-step instructions for setting up the project on a Windows computer using the Command Prompt.
+This guide provides step-by-step instructions for setting up the project. Please follow the guide for your operating system.
 
-### 1. Prerequisites
+### macOS Guide 
+
+On macOS, the best way to manage developer tools is with **Homebrew**, a package manager for command-line tools.
+
+#### 1. Prerequisites
+
+* **Homebrew:** If you don't have it, open the **Terminal** app and run this command:
+    ```bash
+    /bin/bash -c "$(curl -fsSL [https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh](https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh))"
+    ```
+
+* **Git & Python 3.12:** Once Homebrew is ready, install Git and Python 3.12:
+    ```bash
+    brew install git python@3.12
+    ```
+
+#### 2. Installation Steps
+
+1.  **Open the Terminal App**
+    Find it in `Applications/Utilities` or use Spotlight (`⌘ + Space`).
+
+2.  **Clone the Repository**
+    ```bash
+    git clone [https://github.com/Alyilyas/volcanic-tsunami-detection.git](https://github.com/Alyilyas/volcanic-tsunami-detection.git)
+    cd volcanic-tsunami-detection
+    ```
+
+3.  **Create and Activate a Virtual Environment**
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+
+4.  **Install Required Packages**
+    ```bash
+    pip3 install -r requirements.txt
+    ```
+
+---### 1. Prerequisites
 
 Before you begin, you need to install Git and a specific version of Python.
 
