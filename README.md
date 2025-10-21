@@ -97,7 +97,7 @@ Before you begin, you need to install Git and a specific version of Python.
 To run the default analysis (for station `SBJI`, component `BHE`, with non-overlapping windows):
 ```bash
 python code/generate_spectral_detection_plot.py
-
+```
 
 
 The script will process the four events, calculate the threshold, determine the detection time for the flank collapse, and display the final plot. The plot will also be saved to the `/output/figures` directory.
