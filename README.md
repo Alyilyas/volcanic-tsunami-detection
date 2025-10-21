@@ -48,11 +48,11 @@ To ensure the methods are transparent and reproducible, a sample dataset is incl
 
 ---
 
-## ⚙️ Setup Instructions
+## ⚙️ Setup instructions
 
-This guide provides step-by-step instructions for setting up the project. Please follow the guide for your operating system.
+This guide provides step-by-step instructions for setting up the project. Please follow the guide for your operating system:
 
-### macOS Guide 
+### macOS guide 
 
 On macOS, the best way to manage developer tools is with **Homebrew**, a package manager for command-line tools.
 
@@ -68,30 +68,34 @@ On macOS, the best way to manage developer tools is with **Homebrew**, a package
     brew install git python@3.12
     ```
 
-#### 2. Installation Steps
+#### 2. Installation steps
 
 1.  **Open the Terminal App**
     Find it in `Applications/Utilities` or use Spotlight (`⌘ + Space`).
 
-2.  **Clone the Repository**
+2.  **Clone the repository**
     ```bash
     git clone [https://github.com/Alyilyas/volcanic-tsunami-detection.git](https://github.com/Alyilyas/volcanic-tsunami-detection.git)
+    ```
+    ```bash
     cd volcanic-tsunami-detection
     ```
 
-3.  **Create and Activate a Virtual Environment**
+3.  **Create and activate a virtual environment**
     ```bash
     python3 -m venv venv
+    ```
+    ```bash
     source venv/bin/activate
     ```
 
-4.  **Install Required Packages**
+4.  **Install required packages**
     ```bash
     pip3 install -r requirements.txt
     ```
 
 ---
-### Windows Guide ❖
+### Windows guide ❖
 
 #### 1. Prerequisites
 
@@ -105,12 +109,12 @@ Before you begin, you need to install Git and a specific version of Python.
     1.  Download and install Git for Windows: [https://git-scm.com/download/win](https://git-scm.com/download/win)
     2.  During installation, accept the default settings. Ensure you are on the page "Adjusting your PATH environment" and that the recommended option, **"Git from the command line and also from 3rd-party software"**, is selected.
 
-### 2. Installation Steps
+### 2. Installation steps
 
-1.  **Open Command Prompt**
+1.  **Open command prompt**
     Press the Windows key, type `cmd`, and press Enter.
 
-2.  **Clone the Repository**
+2.  **Clone the repository**
     This command downloads the project files to your computer. Navigate to a directory where you want to store the project (e.g., your Desktop or Documents folder) and run:
     ```bash
     git clone https://github.com/Alyilyas/volcanic-tsunami-detection.git
@@ -119,7 +123,7 @@ Before you begin, you need to install Git and a specific version of Python.
     cd volcanic-tsunami-detection
     ```
 
-3.  **Create and Activate a Virtual Environment**
+3.  **Create and activate a virtual environment**
     A virtual environment is an isolated space for the project's dependencies.
     ```bash
     python -m venv venv
@@ -129,7 +133,7 @@ Before you begin, you need to install Git and a specific version of Python.
     ```
     Your command prompt should now start with `(venv)`.
 
-4.  **Install Required Packages**
+4.  **Install required packages**
     This command installs all necessary Python libraries from the `requirements.txt` file.
     ```bash
     pip install -r requirements.txt
@@ -149,7 +153,7 @@ The script will process the four events, calculate the threshold, determine the 
 
 
 
-\### Customizing the Analysis
+\### Customizing the analysis
 
 
 
@@ -157,7 +161,7 @@ To reproduce all the figures in the manuscript, simply modify the parameters in 
 
 
 
-\### Key Parameters to Change:
+\### Key parameters to change:
 
 
 
@@ -181,7 +185,7 @@ To reproduce all the figures in the manuscript, simply modify the parameters in 
 
 
 
-\### Example: Reproducing the Overlapping Window Plot for Station CGJI (BHZ component)
+\### Example: Reproducing the overlapping window plot for station SBJI (BHE component)
 
 
 
@@ -197,9 +201,9 @@ CONFIG = {
 
 "step": 20,              # Set to 20 for 1-second overlap
 
-"station": 'CGJI',
+"station": 'SBJI',
 
-"component": 'BHZ',
+"component": 'BHE',
 
 # ...
 
