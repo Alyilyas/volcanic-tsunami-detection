@@ -72,7 +72,7 @@ Before you begin, you need to install Git and a specific version of Python.
 2.  **Clone the Repository**
     This command downloads the project files to your computer. Navigate to a directory where you want to store the project (e.g., your Desktop or Documents folder) and run:
     ```bash
-    git clone [https://github.com/Alyilyas/volcanic-tsunami-detection.git](https://github.com/Alyilyas/volcanic-tsunami-detection.git)
+    git clone https://github.com/Alyilyas/volcanic-tsunami-detection.git
     ```
     ```bash
     cd volcanic-tsunami-detection
