@@ -49,8 +49,11 @@ To ensure the methods are transparent and reproducible, a sample dataset is incl
 ---
 
 ## ⚙️ Setup instructions
+This guide provides step-by-step instructions for setting up and running the analysis.
+![Workflow flowchart of the offline and online settings](./output/figures/OFFLINE_SETTING1.png)
+As illustrated in the diagram, the code in this repository implements the main part of Offline Setting (the top right blue panel). The primary goal is to process historical seismic data to determine a robust detection threshold, which can then be used in a real-time monitoring system.
 
-This guide provides step-by-step instructions for setting up the project. Please follow the guide for your operating system:
+Please follow the setup guide for your operating system:
 
 ### macOS guide 
 
