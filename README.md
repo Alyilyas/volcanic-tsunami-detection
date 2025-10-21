@@ -178,7 +178,7 @@ To reproduce all the figures in the manuscript, simply modify the parameters in 
 
 &nbsp;   -   `20`: For \*\*1-second overlapping\*\* windows (as in Fig. 12 of the manuscript).
 
-\-   `"n\_bootstrap"`:
+\-   `"n_bootstrap"`:
 
 &nbsp;   -   `100`: For quick tests and debugging.
 
@@ -192,7 +192,7 @@ To reproduce all the figures in the manuscript, simply modify the parameters in 
 
 
 
-1\.  Open `code/generate\_spectral\_detection\_plot.py`.
+1\.  Open `code/generate_spectral_detection_plot.py`.
 
 2\.  Modify the `CONFIG` dictionary:
 
@@ -217,7 +217,7 @@ CONFIG = {
 3\.  Run the script from your terminal:
 
 ```bash 
-python code/generate\_spectral\_detection\_plot.py
+python code/generate_spectral_detection_plot.py
 
 ```
 
