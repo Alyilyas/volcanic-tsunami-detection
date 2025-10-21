@@ -40,65 +40,63 @@ The core of the methodology involves:
 
 ---
 
-
-
 ## 📊 Data availability
-
-
 
 The full seismic dataset used in this study is restricted and was provided by the Indonesian Meteorological, Climatological, and Geophysical Agency (BMKG). Access for research purposes can be requested directly from BMKG.
 
-
-
 To ensure the methods are transparent and reproducible, a sample dataset is included in the `/data` directory. This sample contains short time windows of the 2018 flank collapse event and the three baseline volcanic eruptions, formatted as single-column `.txt` files. The analysis script is configured to run using this sample data.
 
+---
 
+## ⚙️ Setup Instructions
 
-## ⚙️ Installation
+This guide provides step-by-step instructions for setting up the project on a Windows computer using the Command Prompt.
 
-To set up the necessary Python environment and dependencies, it is recommended to use a virtual environment. This ensures that you have the exact versions of the libraries used in this study.
+### 1. Prerequisites
 
-1.  **Clone the Repository**
+Before you begin, you need to install Git and a specific version of Python.
+
+* **Python 3.12:** This project requires **Python 3.12** to ensure compatibility with all scientific packages. Newer versions (like 3.13) may cause installation errors.
+    1.  Download the **Windows installer (64-bit)** from the official Python website: [https://www.python.org/downloads/release/python-3124/](https://www.python.org/downloads/release/python-3124/)
+    2.  Run the installer. **Crucially, check the box that says "Add python.exe to PATH"** on the first screen. 
+
+* **Git:** This is the tool used to download the repository from GitHub.
+    1.  Download and install Git for Windows: [https://git-scm.com/download/win](https://git-scm.com/download/win)
+    2.  During installation, accept the default settings. Ensure you are on the page "Adjusting your PATH environment" and that the recommended option, **"Git from the command line and also from 3rd-party software"**, is selected.
+
+### 2. Installation Steps
+
+1.  **Open Command Prompt**
+    Press the Windows key, type `cmd`, and press Enter.
+
+2.  **Clone the Repository**
+    This command downloads the project files to your computer. Navigate to a directory where you want to store the project (e.g., your Desktop or Documents folder) and run:
     ```bash
-    git clone [https://github.com/](https://github.com/)Alyilyas/volcanic-tsunami-detection.git
+    git clone [https://github.com/Alyilyas/volcanic-tsunami-detection.git](https://github.com/Alyilyas/volcanic-tsunami-detection.git)
     cd volcanic-tsunami-detection
     ```
 
-2.  **Create a Python Virtual Environment**
+3.  **Create and Activate a Virtual Environment**
+    A virtual environment is an isolated space for the project's dependencies.
     ```bash
     python -m venv venv
+    venv\Scripts\activate
     ```
-
-3.  **Activate the Virtual Environment**
-    -   **On Windows:**
-        ```bash
-        venv\Scripts\activate
-        ```
-    -   **On macOS/Linux:**
-        ```bash
-        source venv/bin/activate
-        ```
+    Your command prompt should now start with `(venv)`.
 
 4.  **Install Required Packages**
+    This command installs all necessary Python libraries from the `requirements.txt` file.
     ```bash
     pip install -r requirements.txt
     ```
 
 ---
 
-
----
-
-
-
 ## 🚀 How to run the analysis
-...
-To run the default analysis (for station `SBJI`, component `BHE`, with non-overlapping windows):
 
+To run the default analysis (for station `SBJI`, component `BHE`, with non-overlapping windows):
 ```bash
 python code/generate_spectral_detection_plot.py
-
-```
 
 
 
