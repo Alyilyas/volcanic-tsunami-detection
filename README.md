@@ -184,7 +184,7 @@ To reproduce all the figures in the manuscript, simply modify the parameters in 
 
 &nbsp;   -   `10000`: For producing the final, high-quality results for the manuscript. (Note: this will be computationally intensive).
 
-\-   `"ar\_lag"`: Set the AR model lag order. This should be consistent with the values determined in your analysis (e.g., 10 or 11) or refer to table 1 in the manuscript.
+\-   `"ar_lag"`: Set the AR model lag order. This should be consistent with the values determined in your analysis (e.g., 10 or 11) or refer to table 1 in the manuscript.
 
 
 
