@@ -103,7 +103,7 @@ Before you begin, you need to install Git and a specific version of Python.
 
 * **Python 3.12:** This project requires **Python 3.12** to ensure compatibility with all scientific packages. Newer versions (like 3.13) may cause installation errors.
     1.  Download the **Windows installer (64-bit)** from the official Python website: [https://www.python.org/downloads/release/python-3124/](https://www.python.org/downloads/release/python-3124/)
-    2.  Run the installer. **Crucially, check the box that says "Add python.exe to PATH"** on the first screen. 
+    2.  Run the installer. ‼️**Crucially, check the box that says "Add python.exe to PATH"** on the first screen. 
 
 * **Git:** This is the tool used to download the repository from GitHub.
     1.  Download and install Git for Windows: [https://git-scm.com/download/win](https://git-scm.com/download/win)
