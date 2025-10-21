@@ -73,13 +73,17 @@ Before you begin, you need to install Git and a specific version of Python.
     This command downloads the project files to your computer. Navigate to a directory where you want to store the project (e.g., your Desktop or Documents folder) and run:
     ```bash
     git clone [https://github.com/Alyilyas/volcanic-tsunami-detection.git](https://github.com/Alyilyas/volcanic-tsunami-detection.git)
-    cd volcanic-tsunami-detection
+```
+```
+cd volcanic-tsunami-detection
     ```
 
 3.  **Create and Activate a Virtual Environment**
     A virtual environment is an isolated space for the project's dependencies.
     ```bash
     python -m venv venv
+```
+```
     venv\Scripts\activate
     ```
     Your command prompt should now start with `(venv)`.
