@@ -201,7 +201,7 @@ The Python file will open in **notepad**.
 ### Example: Reproducing the overlapping window plot for station SBJI (BHE component)
 
 
-1\.  Open `code/generate_spectral_detection_plot.py`.
+1\.  Open `code/generate_spectral_detection_plot.py` using any **text editor**.
 
 2\.  Modify the `CONFIG` dictionary:
 
