@@ -160,7 +160,7 @@ The script will process the four events, calculate the threshold, determine the 
 
 
 
-To reproduce all the figures in the manuscript, simply modify the parameters in the `CONFIG` dictionary within the script. This is the most practical and recommended approach. You use CMD to launch a graphical editor, make your changes, and then save the file.
+To reproduce all the figures in the manuscript, simply modify the parameters in the `CONFIG` dictionary within the script. The most practical and recommended approach is to use the Command Prompt to launch a text editor (for example, Notepad), make your changes, and save the file.
 
 1. From your command prompt, type notepad followed by the path to your file:
 ```bash
