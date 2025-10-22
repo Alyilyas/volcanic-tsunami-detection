@@ -162,17 +162,17 @@ The script will process the four events, calculate the threshold, determine the 
 
 To reproduce all the figures in the manuscript, simply modify the parameters in the `CONFIG` dictionary within the script. The most practical and recommended approach is to use the Command Prompt to launch a text editor (for example, **notepad**), make your changes, and save the file.
 
-\1. From your command prompt, type **notepad** followed by the path to your file:
+1\. From your command prompt, type **notepad** followed by the path to your file:
 ```bash
 notepad code/generate_spectral_detection_plot.py
 ```
 The Python file will open in **notepad**.
 
-\2. Make any changes you need.
+2\. Make any changes you need.
 
-\3. Save the file (File > Save or Ctrl+S) and close **notepad**.
+3\. Save the file (File > Save or Ctrl+S) and close **notepad**.
 
-\4. You'll be returned to your command prompt, and the file will be updated.
+4\. You'll be returned to your command prompt, and the file will be updated.
 
 \### Key parameters to change:
 
@@ -198,8 +198,7 @@ The Python file will open in **notepad**.
 
 
 
-\### Example: Reproducing the overlapping window plot for station SBJI (BHE component)
-
+### Example: Reproducing the overlapping window plot for station SBJI (BHE component)
 
 
 1\.  Open `code/generate_spectral_detection_plot.py`.
