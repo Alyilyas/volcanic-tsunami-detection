@@ -169,10 +169,10 @@ def plot_results(all_results, threshold, exceeding_time, config):
 
     # Calculate and format the timestamps for the legend
     event_start_dt = start_dt + timedelta(seconds=config["event_start_time"])
-    event_start_label = f"Event Start Time ({event_start_dt.strftime('%H:%M:%S')})"
+    event_start_label = f"Event start time ({event_start_dt.strftime('%H:%M:%S')})"
 
     arrival_dt = start_dt + timedelta(seconds=config["seismic_arrival_time"])
-    arrival_label = f"Seismic Wave Arrival ({arrival_dt.strftime('%H:%M:%S')})"
+    arrival_label = f"Seismic wave arrival ({arrival_dt.strftime('%H:%M:%S')})"
 
     # Draw threshold and event markers with new UTC labels
     plt.axhline(y=threshold, color='black', linestyle='--', label=f"Threshold = {threshold:.5f}", linewidth=2)
@@ -181,7 +181,7 @@ def plot_results(all_results, threshold, exceeding_time, config):
 
     if exceeding_time is not None:
         exceeding_dt = start_dt + timedelta(seconds=exceeding_time)
-        exceeding_label = f"Threshold Exceeded ({exceeding_dt.strftime('%H:%M:%S')})"
+        exceeding_label = f"Threshold exceeded ({exceeding_dt.strftime('%H:%M:%S')})"
         plt.axvline(x=exceeding_time, color='red', linestyle='--', label=exceeding_label, linewidth=2)
 
     plt.xlabel("Time (seconds)", fontsize=18)
