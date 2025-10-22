@@ -168,23 +168,23 @@ To reproduce all the figures in the manuscript, simply modify the parameters in 
 
 
 
-\-   `"station"`: Change to `'CGJI'`, `'LWLI'`, or `'MDSI'` to analyze a different station.
+\+   `"station"`: Change to `'CGJI'`, `'LWLI'`, or `'MDSI'` to analyze a different station.
 
-\-   `"component"`: Change to `'BHN'` (North-South) or `'BHZ'` (Vertical).
+\+   `"component"`: Change to `'BHN'` (North-South) or `'BHZ'` (Vertical).
 
-\-   `"step"`:
+\+   `"step"`:
 
 &nbsp;   -   `200`: For \*\*non-overlapping\*\* windows (as in Fig. 11 of the manuscript).
 
 &nbsp;   -   `20`: For \*\*1-second overlapping\*\* windows (as in Fig. 12 of the manuscript).
 
-\-   `"n_bootstrap"`:
+\+   `"n_bootstrap"`:
 
 &nbsp;   -   `100`: For quick tests and debugging.
 
 &nbsp;   -   `10000`: For producing the final, high-quality results for the manuscript. (Note: this will be computationally intensive).
 
-\-   `"ar_lag"`: Set the AR model lag order. This should be consistent with the values determined in your analysis (e.g., 10 or 11) or refer to table 1 in the manuscript.
+\+   `"ar_lag"`: Set the AR model lag order. This should be consistent with the values determined in your analysis (e.g., 10 or 11) or refer to table 1 in the manuscript.
 
 
 
