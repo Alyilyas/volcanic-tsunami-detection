@@ -156,7 +156,7 @@ The script will process the four events, calculate the threshold, determine the 
 
 
 
-#### Customizing the analysis
+####Customizing the analysis:
 
 
 
@@ -176,7 +176,7 @@ The Python file will open in **notepad**.
 
 
 
-#### Key parameters to change:
+####Key parameters to change:
 
 
 \+   `"station"`: Change to `'CGJI'`, `'LWLI'`, or `'MDSI'` to analyze a different station.
@@ -198,7 +198,7 @@ The Python file will open in **notepad**.
 \+   `"ar_lag"`: Set the AR model lag order. This should be consistent with the values determined in the analysis (e.g., 10 or 11) or refer to table 1 in the manuscript.
 
 
-#### Example: Modifying the `CONFIG` dictionary:
+####Modifying the `CONFIG` dictionary example:
 
 ```python
 
