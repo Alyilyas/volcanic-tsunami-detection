@@ -160,9 +160,19 @@ The script will process the four events, calculate the threshold, determine the 
 
 
 
-To reproduce all the figures in the manuscript, simply modify the parameters in the `CONFIG` dictionary within the script.
+To reproduce all the figures in the manuscript, simply modify the parameters in the `CONFIG` dictionary within the script. This is the most practical and recommended approach. You use CMD to launch a graphical editor, make your changes, and then save the file.
 
+1. From your command prompt, type notepad followed by the path to your file:
+```bash
+notepad code/generate_spectral_detection_plot.py
+```
+The Python file will open in Notepad.
 
+2. Make any changes you need.
+
+3. Save the file (File > Save or Ctrl+S) and close Notepad.
+
+4. You'll be returned to your command prompt, and the file will be updated.
 
 \### Key parameters to change:
 
