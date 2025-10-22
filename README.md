@@ -156,7 +156,7 @@ The script will process the four events, calculate the threshold, determine the 
 
 
 
-# Customizing the analysis
+#### Customizing the analysis
 
 
 
@@ -174,8 +174,9 @@ The Python file will open in **notepad**.
 
 4\. You'll be returned to your command prompt, and the file will be updated.
 
-\### Key parameters to change:
 
+
+#### Key parameters to change:
 
 
 \+   `"station"`: Change to `'CGJI'`, `'LWLI'`, or `'MDSI'` to analyze a different station.
@@ -197,13 +198,7 @@ The Python file will open in **notepad**.
 \+   `"ar_lag"`: Set the AR model lag order. This should be consistent with the values determined in the analysis (e.g., 10 or 11) or refer to table 1 in the manuscript.
 
 
-
-### Example: Reproducing the overlapping window plot for station SBJI (BHE component)
-
-
-1\.  Open `code/generate_spectral_detection_plot.py` using any **text editor**.
-
-2\.  Modify the `CONFIG` dictionary:
+#### Example: Modifying the `CONFIG` dictionary:
 
 ```python
 
@@ -222,14 +217,6 @@ CONFIG = {
 }
 
 ```
-
-3\.  Run the script from your terminal:
-
-```bash 
-python code/generate_spectral_detection_plot.py
-
-```
-
 
 
 ---
