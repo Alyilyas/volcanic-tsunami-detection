@@ -258,7 +258,7 @@ If you use this code or methodology in your research, please cite our manuscript
 
 | Figure      | Parameters to Set in CONFIG | Notes |
 |--------------|-----------------------------|--------|
-| **Figure 11** | ```python<br>"station": 'SBJI'<br>"component": 'BHE'<br>"step": 200<br>"n_bootstrap": 10000<br>"ar_lag": 10``` | Non-overlapping windows. |
+| **Figure 11** | ```python<br> "station": 'SBJI' "component": 'BHE' "step": 200 "n_bootstrap": 10000 "ar_lag": 10``` | Non-overlapping windows. |
 | **Figure 12** | ```python<br>"station": 'SBJI'<br>"component": 'BHE'<br>"step": 20<br>"n_bootstrap": 10000<br>"ar_lag": 10``` | 1-second overlapping windows. |
 | **Appendix B** | ```python<br>"station": 'CGJI' (or other)<br>"component": 'BHE' (or other)<br>"step": 200<br>"n_bootstrap": 10000<br>"ar_lag": 11 (or other)``` | Repeat for all station/component combinations in the Appendix. Crucially, check *Manuscript Table 1* for the correct `ar_lag` for each station. |
 | **Quick Test** | ```python<br>"n_bootstrap": 100``` | Use this setting for any figure to run a fast, low-quality test for debugging. |
