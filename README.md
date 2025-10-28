@@ -257,10 +257,10 @@ If you use this code or methodology in your research, please cite our manuscript
 > \[Ilyas, A., et al. (2026). A statistical framework for the near real-time seismic detection of tsunami-generating volcanic flank collapses Focused on Anak krakatau.]
 
 | Figure | Parameters to Set in CONFIG | Notes |
-|--------|----------------------------|-------|
-| **Figure 11** | `"station": 'SBJI'\n"component": 'BHE'\n"step": 200\n"n_bootstrap": 10000\n"ar_lag": 10` | Non-overlapping windows. |
-| **Figure 12** | `"station": 'SBJI'\n"component": 'BHE'\n"step": 20\n"n_bootstrap": 10000\n"ar_lag": 10` | 1-second overlapping windows. |
-| **Appendix B** | `"station": 'CGJI' (or other)\n"component": 'BHE' (or other)\n"step": 200\n"n_bootstrap": 10000\n"ar_lag": 11 (or other)` | Repeat for all station/component combinations. Check *Manuscript Table 1* for correct `ar_lag`. |
+| :--- | :--- | :--- |
+| **Figure 11** | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 200`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 10` | Non-overlapping windows. |
+| **Figure 12** | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 20`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 10` | 1-second overlapping windows. |
+| **Appendix B** | `"station": 'CGJI' (or other)`<br>`"component": 'BHE' (or other)`<br>`"step": 200`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 11 (or other)` | Repeat for all station/component combinations. Check *Manuscript Table 1* for correct `ar_lag`. |
 | **Quick Test** | `"n_bootstrap": 100` | Fast low-quality test. |
 
 
