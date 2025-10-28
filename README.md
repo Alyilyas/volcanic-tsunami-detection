@@ -42,19 +42,17 @@ The core of the methodology involves:
 
 ## 📊 Data availability
 
-The full seismic dataset used in this study is restricted and was provided by the Indonesian Meteorological, Climatological, and Geophysical Agency (BMKG). Access for research purposes can be requested directly from BMKG.
+The full seismic dataset used in this study is restricted and was provided by the **Indonesian Meteorological, Climatological, and Geophysical Agency (BMKG)**. Access for research purposes can be requested directly from BMKG via the [WebDC3 interface](httpsa://webdc3.bmkg.go.id/) (BMKG, 2024; Bianchi et al., 2015).
 
 To ensure the methods are transparent and reproducible, a sample dataset is included in the `/data` directory. This sample contains short time windows of the 2018 flank collapse event and the three baseline volcanic eruptions, formatted as single-column `.txt` files. The analysis script is configured to run using this sample data.
-
 ---
 ## Methodology and parameter selection
 
 This section summarizes the key parameters used in the analysis. For a full, detailed justification, please refer to the main manuscript.
 
-### 1. Data source and pre-processing
+### 1. Data pre-processing
 
-* **Source:** Seismic data was obtained via the [WebDC3 interface](httpsa://webdc3.bmkg.go.id/) (Bianchi et al., 2015) hosted by the **BMKG** (Indonesian Meteorological, Climatological, and Geophysical Agency) (BMKG, 2024).
-* **Processing:** All raw seismic waveforms were processed using the [ObsPy library for Python](https://obspy.org/) (Krischer et al., 2015) to perform instrument response correction, converting the data to displacement.
+All raw seismic waveforms (described in "Data Availability") were processed using the [ObsPy library for Python](https://obspy.org/) (Krischer et al., 2015) to perform instrument response correction, converting the data to displacement.
 
 ### 2. Spectral analysis (FFT)
 
