@@ -55,7 +55,7 @@ This section summarizes the key parameters used in the analysis. For a full, det
 
 ### 1. Data pre-processing
 
-All raw seismic waveforms (described in '📊 Data availability') were processed using the [ObsPy library for Python](https://obspy.org/) (Krischer et al., 2015) to perform instrument response correction, converting the data to displacement.
+All raw seismic waveforms (described in `📊 Data availability`) were processed using the [ObsPy library for Python](https://obspy.org/) (Krischer et al., 2015) to perform instrument response correction, converting the data to displacement.
 
 ### 2. Spectral analysis (FFT)
 
