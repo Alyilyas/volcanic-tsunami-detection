@@ -55,7 +55,7 @@ This section summarizes the key parameters used in the analysis. For a full, det
 
 ### 1. Data pre-processing
 
-All raw seismic waveforms (described in `📊 Data availability`) were processed using the [ObsPy library for Python](https://obspy.org/) (Krischer et al., 2015) to perform instrument response correction, converting the data to displacement.
+All raw seismic waveforms (described in `📊 Data availability`) were processed using the [ObsPy library for Python](https://obspy.org/) (Krischer et al., 2015) to perform instrument response correction, converting the data to displacement unit.
 
 ### 2. Optimal Frequency Selection (FFT)
 
@@ -64,10 +64,9 @@ The first step was to identify a distinct frequency band where the flank collaps
 * **Method:** We applied the **Fast Fourier Transform (FFT)** to the pre-processed time-series data for both the flank collapse and the baseline eruption events.
 * **Justification:** The FFT (Cooley & Tukey, 1965; Tary et al., 2014) provides the amplitude spectrum for each event. By quantitatively comparing these spectra, we could identify the frequency range where the flank collapse signal is consistently dominant.
 
-This analysis, detailed in **Manuscript figure 5**, identified the very-long-period (VLP) band ($0.02 \leq f \leq 0.5 \text{ Hz}$) as the optimal target. Our detection algorithm is therefore focused on this band to maximize sensitivity and minimize false alarmsFor computational efficiency, our final detection algorithm focuses on a **single frequency band at 0.1 Hz** within this optimal range to maximize sensitivity and minimize false alarms.
+This analysis, detailed in **Manuscript section 3.1**, identified the very-long-period (VLP) band ($0.02 \leq f \leq 0.5 \text{ Hz}$) as the optimal target. For computational efficiency, our final detection algorithm focuses on a **single frequency band at 0.1 Hz** within this optimal range to maximize sensitivity and minimize false alarms.
 
 ### 3. Window size (200 samples)
-
 * **Choice:** We use a **10-second (200 data points)** analysis window.
 * **Justification:** Signal processing theory (Reyes & Forgach, 2016) dictates that to resolve our **0.1 Hz target frequency** (with a 20 Hz sampling rate), a minimum window of 10 seconds is required to prevent significant spectral leakage.
 
