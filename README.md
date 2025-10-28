@@ -213,19 +213,7 @@ The resulting plot will be saved in the `/output/figures` directory.
 | **Appendix B** | `"station": 'CGJI' (or other)`<br>`"component": 'BHE' (or other)`<br>`"step": 200`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 11 (or other)` | Repeat for all station/component combinations. Check *Manuscript Table 1* for correct `ar_lag`. |
 | **Quick Test** | `"n_bootstrap": 100` | Fast low-quality test. set `"n_bootstrap"`to `10000` for producing the final, high-quality results for the manuscript. (Note: this will be computationally intensive).|
 
-## 📝 Citation
-
-
-
-If you use this code or methodology in your research, please cite our manuscript:
-
-
-
-> \[Ilyas, A., et al. (2026). A statistical framework for the near real-time seismic detection of tsunami-generating volcanic flank collapses Focused on Anak krakatau.]
-
 ---
-
-
 ## 📚 References
 
 A short list of the key software and methodology papers cited in this README. The full bibliography is available in the manuscript.
@@ -247,4 +235,17 @@ A short list of the key software and methodology papers cited in this README. Th
 * Seabold, S., & Perktold, J. (2010). Statsmodels: Econometric and statistical modeling with python. In *9th Python in Science Conference*.
 
 * Tary, J. B., Herrera, R. H., & Van der Baan, M. (2014). Time-varying autoregressive model for spectral analysis of microseismic experiments and long-period volcanic events. *Geophysical Journal International*, 196(1), 600–611.
+
+---
+## 📝 Citation
+
+
+
+If you use this code or methodology in your research, please cite our manuscript:
+
+
+
+> \[Ilyas, A., et al. (2026). A statistical framework for the near real-time seismic detection of tsunami-generating volcanic flank collapses Focused on Anak krakatau.]
+
+---
 
