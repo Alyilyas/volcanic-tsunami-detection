@@ -47,33 +47,33 @@ The full seismic dataset used in this study is restricted and was provided by th
 To ensure the methods are transparent and reproducible, a sample dataset is included in the `/data` directory. This sample contains short time windows of the 2018 flank collapse event and the three baseline volcanic eruptions, formatted as single-column `.txt` files. The analysis script is configured to run using this sample data.
 
 ---
-## Methodology and Parameter Selection
+## Methodology and parameter selection
 
 This section summarizes the key parameters used in the analysis. For a full, detailed justification, please refer to the main manuscript.
 
-### 1. Data Source and Pre-processing
+### 1. Data source and pre-processing
 
 * **Source:** Seismic data was obtained via the [WebDC3 interface](httpsa://webdc3.bmkg.go.id/) (Bianchi et al., 2015) hosted by the **BMKG** (Indonesian Meteorological, Climatological, and Geophysical Agency) (BMKG, 2024).
 * **Processing:** All raw seismic waveforms were processed using the [ObsPy library for Python](https://obspy.org/) (Krischer et al., 2015) to perform instrument response correction, converting the data to displacement.
 
-### 2. Spectral Analysis (FFT)
+### 2. Spectral analysis (FFT)
 
 To detect the event, we transformed the pre-processed time-series data from the time domain to the frequency domain.
 
 * **Method:** We selected the **Fast Fourier Transform (FFT)**.
 * **Justification:** The FFT is an efficient and standard algorithm in seismology for spectral analysis (Cooley & Tukey, 1965; Tary et al., 2014). It provides the amplitude spectrum (a measure of signal energy at each frequency), which is essential for quantitatively comparing the flank collapse against baseline volcanic events.
 
-### 3. Window Size (200 samples)
+### 3. Window size (200 samples)
 
 * **Choice:** We use a **10-second (200 data points)** analysis window.
 * **Justification:** Signal processing theory (Reyes & Forgach, 2016) dictates that to resolve our **0.1 Hz target frequency** (with a 20 Hz sampling rate), a minimum window of 10 seconds is required to prevent significant spectral leakage.
 
-### 4. Autoregressive (AR) Model Selection
+### 4. Autoregressive (AR) model selection
 
 We fit a rolling autoregressive (AR) model to the data. The model order ($p$) and its validity were determined as follows:
 
 * **Choosing Lag Order ($p$):** We employed the **Bayesian Information Criterion (BIC)** (Schwarz, 1978) to objectively select the best model order, balancing model fit against complexity. The chosen lag for each station is listed in Manuscript Table 1.
-* **Model Validation:** After fitting the AR($p$) model, we analyzed the residuals ($\epsilon$) to ensure they were independent and resembled white noise. This confirms the model correctly captured the signal's predictable components. We used two standard statistical tests for this:
+* **Model validation:** After fitting the AR($p$) model, we analyzed the residuals ($\epsilon$) to ensure they were independent and resembled white noise. This confirms the model correctly captured the signal's predictable components. We used two standard statistical tests for this:
     * The **one-sample runs test** (Perktold et al., 2024)
     * The **sample autocorrelation function (ACF)** (Seabold & Perktold, 2010)
 ---
