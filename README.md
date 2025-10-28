@@ -208,8 +208,8 @@ The resulting plot will be saved in the `/output/figures` directory.
 
 | Figure | Parameters to Set in CONFIG | Notes |
 | :--- | :--- | :--- |
-| **Figure 11** | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 200`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 10` | Non-overlapping windows. |
-| **Figure 12** | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 20`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 10` | 1-second overlapping windows. |
+| **Figure 11** | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 200`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 10` | This figure sets the warning threshold using non-overlapping windows. |
+| **Figure 12** | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 20`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 10` | This figure sets the warning threshold using 1-second overlapping windows. |
 | **Appendix B** | `"station": 'CGJI' (or other)`<br>`"component": 'BHE' (or other)`<br>`"step": 200`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 11 (or other)` | Repeat for all station/component combinations. Check *Manuscript Table 1* for correct `ar_lag`. |
 | **Quick Test** | `"n_bootstrap": 100` | Fast low-quality test. |
 
