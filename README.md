@@ -156,11 +156,14 @@ To reproduce a *specific* figure, you must **manually edit the `CONFIG` dictiona
 ```bash
 notepad code/generate_spectral_detection_plot.py
 ```
+
 **Step 2.** Modify the values in the `CONFIG` dictionary according to the "recipes" below.
+
 **Step 3.** Save the file and run the script from your terminal:
 ```bash
 python code/generate_spectral_detection_plot.py
 ```
+
 The resulting plot will be saved in the `/output/figures` directory.
 
 To run the default analysis (for station `SBJI`, component `BHE`, with non-overlapping windows):
