@@ -166,11 +166,6 @@ python code/generate_spectral_detection_plot.py
 
 The resulting plot will be saved in the `/output/figures` directory.
 
-To run the default analysis (for station `SBJI`, component `BHE`, with non-overlapping windows):
-```bash
-python code/generate_spectral_detection_plot.py
-```
-
 ### ➡️ Figure reproduction table
 
 | Figure | Parameters to Set in CONFIG | Notes |
