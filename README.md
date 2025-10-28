@@ -211,7 +211,7 @@ The resulting plot will be saved in the `/output/figures` directory.
 | **Figure 11** | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 200`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 10` | This figure sets the warning threshold using non-overlapping windows. |
 | **Figure 12** | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 20`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 10` | This figure sets the warning threshold using 1-second overlapping windows. |
 | **Appendix B** | `"station": 'CGJI' (or other)`<br>`"component": 'BHE' (or other)`<br>`"step": 200`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 11 (or other)` | Repeat for all station/component combinations. Check *Manuscript Table 1* for correct `ar_lag`. |
-| **Quick Test** | `"n_bootstrap": 100` | Fast low-quality test. set to `10000` (or more) for producing the final, high-quality results for the manuscript. (Note: this will be computationally intensive).
+| **Quick Test** | `"n_bootstrap": 100` | Fast low-quality test. set `"n_bootstrap"`to `10000` for producing the final, high-quality results for the manuscript. (Note: this will be computationally intensive).
  |
 
 ## 📝 Citation
