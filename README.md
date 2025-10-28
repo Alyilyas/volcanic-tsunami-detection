@@ -256,3 +256,22 @@ If you use this code or methodology in your research, please cite our manuscript
 
 > \[Ilyas, A., et al. (2026). A statistical framework for the near real-time seismic detection of tsunami-generating volcanic flank collapses Focused on Anak krakatau.]
 
+Figure,Parameters to Set in CONFIG,Notes
+Figure 11,"""station"": 'SBJI' 
+ ""component"": 'BHE' 
+ ""step"": 200 
+ ""n_bootstrap"": 10000 
+ ""ar_lag"": 10",Non-overlapping windows.
+Figure 12,"""station"": 'SBJI' 
+ ""component"": 'BHE' 
+ ""step"": 20 
+ ""n_bootstrap"": 10000 
+ ""ar_lag"": 10",1-second overlapping windows.
+Appendix B,"""station"": 'CGJI' (or other) 
+ ""component"": 'BHE' (or other) 
+ ""step"": 200 
+ ""n_bootstrap"": 10000 
+ ""ar_lag"": 11 (or other)","Repeat for all station/component combinations in the Appendix. 
+ Crucially, check Manuscript Table 1 for the correct ar_lag for each station."
+Quick Test,"""n_bootstrap"": 100","Use this setting for any figure to run a fast, low-quality test for debugging."
+
