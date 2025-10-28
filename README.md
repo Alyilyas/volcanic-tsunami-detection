@@ -46,6 +46,7 @@ The full seismic dataset used in this study is restricted and was provided by th
 
 To ensure the methods are transparent and reproducible, a sample dataset is included in the `/data` directory. This sample contains short time windows of the 2018 flank collapse event and the three baseline volcanic eruptions, formatted as single-column `.txt` files. The analysis script is configured to run using this sample data.
 ---
+
 ## Methodology and parameter selection
 
 This section summarizes the key parameters used in the analysis. For a full, detailed justification, please refer to the main manuscript.
