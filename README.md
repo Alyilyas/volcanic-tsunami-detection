@@ -57,12 +57,14 @@ This section summarizes the key parameters used in the analysis. For a full, det
 
 All raw seismic waveforms (described in `📊 Data availability`) were processed using the [ObsPy library for Python](https://obspy.org/) (Krischer et al., 2015) to perform instrument response correction, converting the data to displacement.
 
-### 2. Spectral analysis (FFT)
+### 2. Optimal Frequency Selection (FFT)
 
-To detect the event, we transformed the pre-processed time-series data from the time domain to the frequency domain.
+The first step was to identify a distinct frequency band where the flank collapse signal is most prominent compared to baseline volcanic activity.
 
-* **Method:** We selected the **Fast Fourier Transform (FFT)**.
-* **Justification:** The FFT is an efficient and standard algorithm in seismology for spectral analysis (Cooley & Tukey, 1965; Tary et al., 2014). It provides the amplitude spectrum (a measure of signal energy at each frequency), which is essential for quantitatively comparing the flank collapse against baseline volcanic events.
+* **Method:** We applied the **Fast Fourier Transform (FFT)** to the pre-processed time-series data for both the flank collapse and the baseline eruption events.
+* **Justification:** The FFT (Cooley & Tukey, 1965; Tary et al., 2014) provides the amplitude spectrum for each event. By quantitatively comparing these spectra, we could identify the frequency range where the flank collapse signal is consistently dominant.
+
+This analysis, detailed in **Manuscript figure 5**, identified the very-long-period (VLP) band ($0.02 \leq f \leq 0.5 \text{ Hz}$) as the optimal target. Our detection algorithm is therefore focused on this band to maximize sensitivity and minimize false alarmsFor computational efficiency, our final detection algorithm focuses on a **single frequency band at 0.1 Hz** within this optimal range to maximize sensitivity and minimize false alarms.
 
 ### 3. Window size (200 samples)
 
