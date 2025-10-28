@@ -6,6 +6,8 @@ A statistical framework for the near real-time detection of tsunami-generating v
 
 This repository contains the data and code for the manuscript (Ilyas et al, 2026). The analysis framework is designed to detect tsunami-generating volcanic flank collapses from single-station seismic data in near real-time, using the 2018 Anak Krakatau event as a case study.
 
+![Workflow flowchart of the offline and online settings](./output/figures/OFFLINE_SETTING1.png)
+As illustrated in the diagram, the code in this repository implements the main part of Offline Setting (the top right--marked with red stripped square). The primary goal is to process historical seismic data to determine a robust detection threshold, which can then be used in a real-time monitoring system.
 
 
 The core of the methodology involves:
@@ -74,22 +76,19 @@ This analysis, detailed in **Manuscript section 3.1**, identified the very-long-
 
 ### 4. Autoregressive (AR) model selection
 
-We fit a rolling autoregressive (AR) model to the data. The model order ($p$) and its validity were determined as follows:
+We fit a rolling autoregressive (AR) model to the data. The model order ($p$) and its validity were determined using a rigorous, window-by-window process:
 
-* **Choosing Lag Order ($p$):** We employed the **BIC** to objectively select the best model order, balancing model fit against complexity. 
-* **Model validation:** After fitting the AR($p$) model, we analyzed the residuals ($\epsilon$) to ensure they were independent and resembled white noise. This confirms the model correctly captured the signal's predictable components. We used two standard statistical tests for this:
-    * The **one-sample runs test** (Perktold et al., 2024) to test the residual randomness, and
-    * The **sample autocorrelation function (ACF)** (Seabold & Perktold, 2010) to test the residual independence.
-The chosen lag for each station is listed in Manuscript Table 1.
+* **Lag order selection:** The final lag order reported in **manuscript Table 1** is the **mean optimal lag** ($\bar{p}^{\ast}$). This value was derived by:
+    1.  First, identifying a set of "acceptable" lags ($p \in \{1, \dots, 20\}$) for each window. A lag was "acceptable" if its model's residuals passed the **one-sample runs test** for randomness (Perktold et al., 2024; p-value > 0.05).
+    2.  Then, from that acceptable set, selecting the single optimal lag ($p_q^{\ast}$) that minimized the **Bayesian Information Criterion (BIC)** (Schwarz, 1978), which penalizes model complexity.
+    3.  Finally, calculating the mean of all optimal lags ($\bar{p}^{\ast}$) across all valid windows.
+
+* **Model validation:** The residuals from the selected optimal models were then *also* validated using the **sample autocorrelation function (ACF)** (Seabold & Perktold, 2010) to confirm their temporal independence (i.e., all ACF lags fell within Bartlett's confidence bounds).
 ---
 
 
 ## ⚙️ Setup instructions
-This guide provides step-by-step instructions for setting up and running the analysis.
-![Workflow flowchart of the offline and online settings](./output/figures/OFFLINE_SETTING1.png)
-As illustrated in the diagram, the code in this repository implements the main part of Offline Setting (the top right--marked with red stripped square). The primary goal is to process historical seismic data to determine a robust detection threshold, which can then be used in a real-time monitoring system.
-
-Please follow the setup guide for your operating system:
+This guide provides step-by-step instructions for setting up and running the analysis. Please follow the setup guide for your operating system:
 
 ### macOS guide 
 
