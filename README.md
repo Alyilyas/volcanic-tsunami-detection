@@ -48,6 +48,38 @@ To ensure the methods are transparent and reproducible, a sample dataset is incl
 
 ---
 
+##  Methodology and parameter selection
+
+This section summarizes the key parameters used in the analysis. For a full, detailed justification, please refer to the main manuscript.
+
+### 1. Data source and pre-processing
+
+* **Source:** Seismic data was obtained via the [WebDC3 interface](httpsa://webdc3.bmkg.go.id/) hosted by the **BMKG** (Indonesian Meteorological, Climatological, and Geophysical Agency).
+* **Processing:** All raw seismic waveforms were processed using the [ObsPy library for Python](https://obspy.org/) to perform instrument response correction, converting the data to displacement.
+
+### 2. Spectral analysis (FFT)
+
+To detect the event, we transformed the pre-processed time-series data from the time domain to the frequency domain.
+
+* **Method:** We selected the **Fast Fourier Transform (FFT)**.
+* **Justification:** The FFT is an efficient and standard algorithm in seismology for spectral analysis. It provides the amplitude spectrum (a measure of signal energy at each frequency), which is essential for quantitatively comparing the flank collapse against baseline volcanic events.
+
+### 3. Window size (200 samples)
+
+* **Choice:** We use a **10-second (200 data points)** analysis window.
+* **Justification:** Signal processing theory dictates that to resolve our **0.1 Hz target frequency** (with a 20 Hz sampling rate), a minimum window of 10 seconds is required to prevent significant spectral leakage.
+
+### 4. Autoregressive (AR) model selection
+
+We fit a rolling autoregressive (AR) model to the data. The model order ($p$) and its validity were determined as follows:
+
+* **Choosing lag order ($p$):** We employed the **Bayesian Information Criterion (BIC)** to objectively select the best model order, balancing model fit against complexity. The chosen lag for each station is listed in Manuscript Table 1.
+* **Model Validation:** After fitting the AR($p$) model, we analyzed the residuals ($\epsilon$) to ensure they were independent and resembled white noise. This confirms the model correctly captured the signal's predictable components. We used two standard statistical tests for this:
+    * The **one-sample runs test**
+    * The **sample autocorrelation function (ACF)**
+
+---
+
 ## ⚙️ Setup instructions
 This guide provides step-by-step instructions for setting up and running the analysis.
 ![Workflow flowchart of the offline and online settings](./output/figures/OFFLINE_SETTING1.png)
