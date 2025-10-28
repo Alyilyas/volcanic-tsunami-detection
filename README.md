@@ -47,38 +47,37 @@ The full seismic dataset used in this study is restricted and was provided by th
 To ensure the methods are transparent and reproducible, a sample dataset is included in the `/data` directory. This sample contains short time windows of the 2018 flank collapse event and the three baseline volcanic eruptions, formatted as single-column `.txt` files. The analysis script is configured to run using this sample data.
 
 ---
-
-##  Methodology and parameter selection
+## Methodology and Parameter Selection
 
 This section summarizes the key parameters used in the analysis. For a full, detailed justification, please refer to the main manuscript.
 
-### 1. Data source and pre-processing
+### 1. Data Source and Pre-processing
 
-* **Source:** Seismic data was obtained via the [WebDC3 interface](httpsa://webdc3.bmkg.go.id/) hosted by the **BMKG** (Indonesian Meteorological, Climatological, and Geophysical Agency).
-* **Processing:** All raw seismic waveforms were processed using the [ObsPy library for Python](https://obspy.org/) to perform instrument response correction, converting the data to displacement.
+* **Source:** Seismic data was obtained via the [WebDC3 interface](httpsa://webdc3.bmkg.go.id/) (Bianchi et al., 2015) hosted by the **BMKG** (Indonesian Meteorological, Climatological, and Geophysical Agency) (BMKG, 2024).
+* **Processing:** All raw seismic waveforms were processed using the [ObsPy library for Python](https://obspy.org/) (Krischer et al., 2015) to perform instrument response correction, converting the data to displacement.
 
-### 2. Spectral analysis (FFT)
+### 2. Spectral Analysis (FFT)
 
 To detect the event, we transformed the pre-processed time-series data from the time domain to the frequency domain.
 
 * **Method:** We selected the **Fast Fourier Transform (FFT)**.
-* **Justification:** The FFT is an efficient and standard algorithm in seismology for spectral analysis. It provides the amplitude spectrum (a measure of signal energy at each frequency), which is essential for quantitatively comparing the flank collapse against baseline volcanic events.
+* **Justification:** The FFT is an efficient and standard algorithm in seismology for spectral analysis (Cooley & Tukey, 1965; Tary et al., 2014). It provides the amplitude spectrum (a measure of signal energy at each frequency), which is essential for quantitatively comparing the flank collapse against baseline volcanic events.
 
-### 3. Window size (200 samples)
+### 3. Window Size (200 samples)
 
 * **Choice:** We use a **10-second (200 data points)** analysis window.
-* **Justification:** Signal processing theory dictates that to resolve our **0.1 Hz target frequency** (with a 20 Hz sampling rate), a minimum window of 10 seconds is required to prevent significant spectral leakage.
+* **Justification:** Signal processing theory (Reyes & Forgach, 2016) dictates that to resolve our **0.1 Hz target frequency** (with a 20 Hz sampling rate), a minimum window of 10 seconds is required to prevent significant spectral leakage.
 
-### 4. Autoregressive (AR) model selection
+### 4. Autoregressive (AR) Model Selection
 
 We fit a rolling autoregressive (AR) model to the data. The model order ($p$) and its validity were determined as follows:
 
-* **Choosing lag order ($p$):** We employed the **Bayesian Information Criterion (BIC)** to objectively select the best model order, balancing model fit against complexity. The chosen lag for each station is listed in Manuscript Table 1.
+* **Choosing Lag Order ($p$):** We employed the **Bayesian Information Criterion (BIC)** (Schwarz, 1978) to objectively select the best model order, balancing model fit against complexity. The chosen lag for each station is listed in Manuscript Table 1.
 * **Model Validation:** After fitting the AR($p$) model, we analyzed the residuals ($\epsilon$) to ensure they were independent and resembled white noise. This confirms the model correctly captured the signal's predictable components. We used two standard statistical tests for this:
-    * The **one-sample runs test**
-    * The **sample autocorrelation function (ACF)**
-
+    * The **one-sample runs test** (Perktold et al., 2024)
+    * The **sample autocorrelation function (ACF)** (Seabold & Perktold, 2010)
 ---
+
 
 ## ⚙️ Setup instructions
 This guide provides step-by-step instructions for setting up and running the analysis.
@@ -217,5 +216,28 @@ If you use this code or methodology in your research, please cite our manuscript
 
 > \[Ilyas, A., et al. (2026). A statistical framework for the near real-time seismic detection of tsunami-generating volcanic flank collapses Focused on Anak krakatau.]
 
+---
 
+
+## 📚 References
+
+A short list of the key software and methodology papers cited in this README. The full bibliography is available in the manuscript.
+
+* Bianchi, M., Evans, P. L., Heinloo, A., & Quinteros, J. (2015). *WebDC3 Web Interface*. GFZ Data Services. [https://doi.org/10.5880/GFZ.2.4/2016.001](https://doi.org/10.5880/GFZ.2.4/2016.001)
+
+* Cooley, J. W., & Tukey, J. W. (1965). An algorithm for the machine calculation of complex Fourier series. *Mathematics of Computation*, 19(90), 297–301.
+
+* Indonesian Meteorological, Climatological, and Geophysical Agency (BMKG). (2024). *WebDC3 Seismic Data Portal*. Accessed: 2024-07-09. [https://geof.bmkg.go.id/webdc3/index.html](https://geof.bmkg.go.id/webdc3/index.html)
+
+* Krischer, L., Megies, T., Barsch, R., Beyreuther, M., Lecocq, T., Caudron, C., & Wassermann, J. (2015). ObsPy: A Bridge for Seismology into the Scientific Python Ecosystem. *Computational Science & Discovery*, 8(1), 014003. [https://doi.org/10.1088/1749-4699/8/1/014003](https://doi.org/10.1088/1749-4699/8/1/014003)
+
+* Perktold, J., Seabold, S., Sheppard, K., et al. (2024). *statsmodels/statsmodels: Release 0.14.2*. Zenodo. [https://doi.org/10.5281/zenodo.10984387](https://doi.org/10.5281/zenodo.10984387)
+
+* Reyes, J. M. A., & Forgach, C. E. S. (2016). Evaluation of the minimum size of a window for harmonics signals. *Journal of Signal and Information Processing*, 7(04), 175–191.
+
+* Schwarz, G. E. (1978). Estimating the dimension of a model. *The Annals of Statistics*, 6(2), 461–464. [https://doi.org/10.1214/aos/1176344136](https://doi.org/10.1214/aos/1176344136)
+
+* Seabold, S., & Perktold, J. (2010). Statsmodels: Econometric and statistical modeling with python. In *9th Python in Science Conference*.
+
+* Tary, J. B., Herrera, R. H., & Van der Baan, M. (2014). Time-varying autoregressive model for spectral analysis of microseismic experiments and long-period volcanic events. *Geophysical Journal International*, 196(1), 600–611.
 
