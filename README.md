@@ -69,14 +69,14 @@ This analysis, detailed in **Manuscript section 3.1**, identified the very-long-
 ### 3. Window size (200 samples)
 * **Choice:** We use a **10-second (200 data points)** analysis window.
 * **Justification:** This choice is supported by both signal processing theory and a data-driven analysis:
-    1.  **Theoretical Minimum:** Signal processing theory (Reyes & Forgach, 2016) dictates that a 10-second (200-sample) window is the *minimum* required to reliably resolve our 0.1 Hz target frequency (with a 20 Hz sampling rate) and prevent spectral leakage.
-    2.  **Data-Driven Validation (BIC):** We confirmed this theoretical minimum using the **Bayesian Information Criterion (BIC)**. As detailed in the manuscript (and Supplementary Section S3), this data-driven method consistently selected optimal window sizes very close to 200 samples when applied to both the flank collapse event (e.g., 198-207 samples) and the entire dataset (mean of ~209 samples).
+    1.  **Theoretical minimum:** Signal processing theory (Reyes & Forgach, 2016) dictates that a 10-second (200-sample) window is the *minimum* required to reliably resolve our 0.1 Hz target frequency (with a 20 Hz sampling rate) and prevent spectral leakage.
+    2.  **Data-driven validation:** We confirmed this theoretical minimum using the **Bayesian Information Criterion (BIC)** (Schwarz, 1978). As detailed in the manuscript (and Supplementary Section S3), this data-driven method consistently selected optimal window sizes very close to 200 samples when applied to both the flank collapse event (e.g., 198-207 samples) and the entire dataset (mean of ~209 samples).
 
 ### 4. Autoregressive (AR) model selection
 
 We fit a rolling autoregressive (AR) model to the data. The model order ($p$) and its validity were determined as follows:
 
-* **Choosing Lag Order ($p$):** We employed the **Bayesian Information Criterion (BIC)** (Schwarz, 1978) to objectively select the best model order, balancing model fit against complexity. The chosen lag for each station is listed in Manuscript Table 1.
+* **Choosing Lag Order ($p$):** We employed the **(BIC)** to objectively select the best model order, balancing model fit against complexity. The chosen lag for each station is listed in Manuscript Table 1.
 * **Model validation:** After fitting the AR($p$) model, we analyzed the residuals ($\epsilon$) to ensure they were independent and resembled white noise. This confirms the model correctly captured the signal's predictable components. We used two standard statistical tests for this:
     * The **one-sample runs test** (Perktold et al., 2024)
     * The **sample autocorrelation function (ACF)** (Seabold & Perktold, 2010)
