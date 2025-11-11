@@ -160,7 +160,7 @@ def main():
         full_path = CONFIG["save_dir"] / filename
         plt.savefig(full_path, dpi=300, bbox_inches='tight')
         print(f"✅ Figure for {station} saved successfully to: {full_path}")
-
+        plt.show()
         plt.close(fig)
 
 

@@ -34,7 +34,7 @@ CONFIG = {
     "save_dir": Path("output/figures/ACF_Validation_Supplementary"),
 
     # Plotting parameters
-    "figsize_base": (7, 5),  # base size per subplot (width, height)
+    "figsize_base": (6, 5),  # base size per subplot (width, height)
     "title_fontsize": 24,
     "label_fontsize": 20,
     "axis_fontsize": 16,
@@ -229,7 +229,7 @@ def main():
         full_path = CONFIG["save_dir"] / filename
         plt.savefig(full_path, dpi=300, bbox_inches='tight')
         print(f"✅ Figure for {station} saved successfully to: {full_path}")
-
+        plt.show()
         plt.close(fig)  # Close figure to save memory
 
 
