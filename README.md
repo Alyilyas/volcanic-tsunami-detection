@@ -228,29 +228,9 @@ The resulting plot will be saved in the `/output/figures` directory.
 
 ### ➡️ Figure reproduction table
 
-| Figure | Parameters to Set in CONFIG | Notes |
-| :--- | :--- | :--- |
-| **Figure 11** | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 200`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 10` | This figure sets the warning threshold using non-overlapping windows. |
-| **Figure 12** | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 20`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 10` | This figure sets the warning threshold using 1-second overlapping windows. |
-| **Appendix B** | `"station": 'CGJI' (or other)`<br>`"component": 'BHE' (or other)`<br>`"step": 200`<br>`"n_bootstrap": 10000`<br>`"ar_lag": 11 (or other)` | Repeat for all station/component combinations. Check *Manuscript Table 1* for correct `ar_lag`. |
-| **Quick Test** | `"n_bootstrap": 100` | Fast low-quality test. set `"n_bootstrap"`to `10000` for producing the final, high-quality results for the manuscript. (Note: this will be computationally intensive).|
-
 | Figure | Script to Run | Parameters to Set in `CONFIG` | Notes |
 | :--- | :--- | :--- | :--- |
-| **Fig. 5** (FFT) | `python code/relevant_frequency.py` | (Edit `CONFIG` as needed) | Run script directly to generate FFT plot. |
-| **Fig. 6** (BIC) | `python code/optimal_window_size.py` | (Edit `CONFIG` as needed) | Run script directly to generate BIC plot. |
-| **Fig. 9** (AR Lag) | `python code/optimal_AR_lag.py` | (Edit `CONFIG` as needed) | Run script directly to generate AR lag plot. |
-| **Fig. 10** (ACF) | `python code/AR_lag_validation.py` | (Edit `CONFIG` as needed) | Run script directly to generate ACF validation plot. |
-| **T1** (Threshold) | `python code/generate_spectral_threshold.py` | (Edit `CONFIG` as needed) | Run script directly. This generates the threshold (T1). |
-| **Fig. 11** | `python code/generate_spectral_detection_plot.py` | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 200`<br>`"n_bootstrap": 10000`<br/>`"ar_lag": 10` | Validates the system against the flank collapse using non-overlapping windows. |
-| **Fig. 12** | `python code/generate_spectral_detection_plot.py` | `"station": 'SBJI'`<br>`"component": 'BHE'`<br>`"step": 20`<br>`"n_bootstrap": 10000`<br/>`"ar_lag": 10` | Validates the system against the flank collapse using 1-second overlapping windows. |
-| **Fig. 14** (Ruang) | `python code/generate_spectral_detection_plot_ruang.py` | (Edit `CONFIG` as needed) | Run script directly. This is a separate validation for the Ruang volcano. |
-| **Appendix B** | `python code/generate_spectral_detection_plot.py` | `"station": 'CGJI'` (or other)<br/>`"component": 'BHE'` (or other)<br/>`"step": 200`<br/>`"n_bootstrap": 10000`<br/>`"ar_lag": 11` (or other) | Repeat for all station/component combinations. Check *Manuscript Table 1* for correct `ar_lag`. |
-| **Quick Test** | `python code/generate_spectral_detection_plot.py` | `"n_bootstrap": 100` | Fast low-quality test. Set to `10000` for final, high-quality results. (Note: this will be computationally intensive). |
-
-| Figure | Script to Run | Parameters to Set in `CONFIG` | Notes |
-| :--- | :--- | :--- | :--- |
-| **Fig. 5** (FFT) | `python code/relevant_frequency.py` | Edit `CONFIG` to select data:<br/>```python<br/>"stations": ['SBJI', 'CGJI', ...]<br/>"components": ['BHE', 'BHN', ...]<br/>``` | Run script directly. Edit `CONFIG` to run on different stations/components. |
+| **Fig. 5** (FFT) | ``` bash python code/relevant_frequency.py``` | Edit `CONFIG` to select data:<br/>```python<br/>"stations": ['SBJI', 'CGJI', ...]<br/>"components": ['BHE', 'BHN', ...]<br/>``` | Run script directly. Edit `CONFIG` to run on different stations/components. |
 | **Fig. 6** (BIC) | `python code/optimal_window_size.py` | Edit `CONFIG` to select data:<br/>```python<br/>"stations": ['SBJI', 'CGJI', ...]<br/>"components": ['BHE', 'BHN', ...]<br/>``` | Run script directly. Edit `CONFIG` to run on different stations/components. |
 | **Fig. 9** (AR Lag) | `python code/optimal_AR_lag.py` | Edit `CONFIG` to select data:<br/>```python<br/>"stations": ['SBJI', 'CGJI', ...]<br/>"components": ['BHE', 'BHN', ...]<br/>``` | Run script directly. Edit `CONFIG` to run on different stations/components. |
 | **Fig. 10** (ACF) | `python code/AR_lag_validation.py` | Edit `CONFIG` to select data:<br/>```python<br/>"stations": ['SBJI', 'CGJI', ...]<br/>"components": ['BHE', 'BHN', ...]<br/>``` | Run script directly. Edit `CONFIG` to run on different stations/components. |
