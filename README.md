@@ -32,20 +32,19 @@ The core of the methodology involves:
 ---
 
 
-
 ## 📂 Repository structure
 
-
-
-\-   `/code`: Contains the main Python script `generate_spectral_detection_plot.py`for producing Fig 11 & 12 (also figures in Appendix B) to determine the system threshold.
-
-\-   `/data`: Contains the sample dataset used to run the analysis.
-
-\-   `/output/figures`: The default directory where generated figures are saved.
-
-\-   `requirements.txt`: The file listing all required Python packages for reproducibility.
-
-
+-   `/code`: Contains all Python scripts for the analysis.
+    -   `relevant_frequency.py`: Generates Figure 5 (FFT).
+    -   `optimal_window_size.py`: Generates Figure 6 (BIC).
+    -   `optimal_AR_lag.py`: Generates Figure 9 (AR Lag).
+    -   `AR_lag_validation.py`: Generates Figure 10 (ACF Validation).
+    -   `generate_spectral_threshold.py`: Generates Figure 14 (Threshold).
+    -   `generate_spectral_detection_plot.py`: Generates Figure 11 & 12 (Main validation).
+    -   `generate_spectral_detection_plot_ruang.py`: (Optional) An alternative validation script.
+-   `/data`: Contains the sample dataset used to run the analysis.
+-   `/output/figures`: The default directory where generated figures are saved.
+-   `requirements.txt`: The file listing all required Python packages for reproducibility.
 
 ---
 
@@ -58,7 +57,7 @@ To ensure the methods are transparent and reproducible, a sample dataset is incl
 
 ---
 
-## Methodology and parameter determination (Figs. 5, 6, 8)
+## Methodology and parameter determination (Figs. 5, 6, 9)
 
 This section summarizes the key parameters used in the analysis. For a full, detailed justification, please refer to the main manuscript.
 
@@ -81,7 +80,7 @@ This analysis, detailed in **Manuscript section 3.1**, identified a range of the
     1.  **Theoretical minimum:** Signal processing theory (Reyes & Forgach, 2016) dictates that a 10-second (200-sample) window is the *minimum* required to reliably resolve our 0.1 Hz target frequency (with a 20 Hz sampling rate) and prevent spectral leakage.
     2.  **Data-driven validation:** We confirmed this theoretical minimum using the **Bayesian Information Criterion (BIC)** (Schwarz, 1978). As detailed in the manuscript section 3.2 (and supplementary information section S3), this data-driven method consistently selected optimal window sizes very close to 200 samples when applied to both the flank collapse event (e.g., 198-207 samples) and the entire dataset (mean of ~209 samples).
 
-### 4. Autoregressive (AR) model selection — (Manuscript Fig. 8)
+### 4. Autoregressive (AR) model selection — (Manuscript Fig. 9)
 
 We fit a rolling autoregressive (AR) model to the data. The model order ($p$) and its validity were determined using a rigorous, window-by-window process:
 
@@ -90,7 +89,7 @@ We fit a rolling autoregressive (AR) model to the data. The model order ($p$) an
     2.  Then, from that acceptable set, selecting the single optimal lag ($p_q^{\ast}$) that minimized the **Bayesian Information Criterion (BIC)** (Schwarz, 1978), which penalizes model complexity.
     3.  Finally, calculating the mean of all optimal lags ($\bar{p}^{\ast}$) across all valid windows.
 
-* **Model validation:** The residuals from the selected optimal models were then *also* validated using the **sample autocorrelation function (ACF)** (Seabold & Perktold, 2010) to confirm their temporal independence (i.e., all ACF lags fell within Bartlett's confidence bounds).
+* **Model validation (Fig.10):** The residuals from the selected optimal models were then *also* validated using the **sample autocorrelation function (ACF)** (Seabold & Perktold, 2010) to confirm their temporal independence (i.e., all ACF lags fell within Bartlett's confidence bounds).
 ---
 
 
