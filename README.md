@@ -7,8 +7,15 @@ A statistical framework for the near real-time detection of tsunami-generating v
 This repository contains the data and code for the manuscript (Ilyas et al, 2026). The analysis framework is designed to detect tsunami-generating volcanic flank collapses from single-station seismic data in near real-time, using the 2018 Anak Krakatau event as a case study.
 
 ![Workflow flowchart of the offline and online settings](./output/figures/OFFLINE_SETTING1.png)
-As illustrated in the diagram, the code in this repository implements the main part of Offline Setting (the top right--marked with red stripped square). The primary goal is to process historical seismic data to determine a robust detection threshold, which can then be used in a real-time monitoring system.
+As illustrated in the annotated diagram, the analysis framework is divided into two distinct settings:
 
+### 1. Offline Setting (Parameter & Threshold Generation): This stage uses historical data to build the detection model. It consists of two parts:
+
+* **Parameter Determination (Figs. 5, 6, 8):** First, we determine the optimal parameters for frequency, window size, and AR lag. This is detailed in the "Methodology" section below.
+
+* **Threshold Generation (Fig. 14):** Second, we use those parameters to bootstrap the baseline eruption data and determine the final 99.9% detection threshold.
+
+### 2. Online Setting (System Validation - Fig. 11): This stage represents the real-time application and its validation. It takes a new data stream (like the 2018 flank collapse), compares its FFT magnitude to the threshold, and raises an alarm if exceeded.
 
 The core of the methodology involves:
 
@@ -51,7 +58,7 @@ To ensure the methods are transparent and reproducible, a sample dataset is incl
 
 ---
 
-## Methodology and parameter selection
+## Methodology and parameter determination (Figs. 5, 6, 8)
 
 This section summarizes the key parameters used in the analysis. For a full, detailed justification, please refer to the main manuscript.
 
@@ -59,7 +66,7 @@ This section summarizes the key parameters used in the analysis. For a full, det
 
 All raw seismic waveforms (described in `📊 Data availability`) were processed using the [ObsPy library for Python](https://obspy.org/) (Krischer et al., 2015) to perform instrument response correction, converting the data to displacement units.
 
-### 2. Optimal frequency selection (FFT)
+### 2. Optimal frequency selection (FFT) — (Manuscript Fig. 5)
 
 The first step was to identify a distinct frequency band where the flank collapse signal is most prominent compared to baseline volcanic activity.
 
@@ -68,13 +75,13 @@ The first step was to identify a distinct frequency band where the flank collaps
 
 This analysis, detailed in **Manuscript section 3.1**, identified a range of the very-long-period (VLP) band ($0.08 \leq f \leq 0.18 \text{ Hz}$) as the optimal target. For computational efficiency, our final detection algorithm focuses on a **single frequency band at 0.1 Hz** within this optimal range to maximize sensitivity and minimize false alarms.
 
-### 3. Window size (200 samples)
+### 3. Window size (200 samples) — (Manuscript Fig. 6)
 * **Choice:** We use a **10-second (200 data points)** analysis window, detailed in **Manuscript section 3.2**.
 * **Justification:** This choice is supported by both signal processing theory and a data-driven analysis:
     1.  **Theoretical minimum:** Signal processing theory (Reyes & Forgach, 2016) dictates that a 10-second (200-sample) window is the *minimum* required to reliably resolve our 0.1 Hz target frequency (with a 20 Hz sampling rate) and prevent spectral leakage.
     2.  **Data-driven validation:** We confirmed this theoretical minimum using the **Bayesian Information Criterion (BIC)** (Schwarz, 1978). As detailed in the manuscript section 3.2 (and supplementary information section S3), this data-driven method consistently selected optimal window sizes very close to 200 samples when applied to both the flank collapse event (e.g., 198-207 samples) and the entire dataset (mean of ~209 samples).
 
-### 4. Autoregressive (AR) model selection
+### 4. Autoregressive (AR) model selection — (Manuscript Fig. 8)
 
 We fit a rolling autoregressive (AR) model to the data. The model order ($p$) and its validity were determined using a rigorous, window-by-window process:
 
