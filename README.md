@@ -15,7 +15,7 @@ As illustrated in the annotated diagram, the analysis framework is divided into 
 
 2.  **Online setting (system validation - Fig. 11):** This stage represents the real-time application and its validation. It takes a new data stream (like the 2018 flank collapse), compares its FFT magnitude to the threshold (T1), and raises an alarm if exceeded.
 
-The code in this repository is designed to reproduce these key figures. The **"Methodology"** section explains the "Parameter Determination" steps, and the **"How to reproduce manuscript figures"** section explains how to run the scripts to generate all figures.
+The code in this repository is designed to reproduce these key figures. The **"Methodology"** section explains the "Parameter determination" steps, and the **"How to reproduce manuscript figures"** section explains how to run the scripts to generate all figures.
 
 ---
 
