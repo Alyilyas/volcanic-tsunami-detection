@@ -177,12 +177,12 @@ Before you begin, you need to install Git and a specific version of Python.
 
 This guide explains how to reproduce all key figures. It is split into two logical parts, corresponding to the flowchart.
 
-> **Important Note on Workflows:**
+> **Important note on workflows:**
 > This repository supports two distinct workflows:
 >
-> * **1. To Reproduce Our Manuscript (Figs. 11, 12, 14):** You can use the pre-computed parameters from our paper (e.g., `ar_lag: 10`). These are the values provided in the reproduction table below. You can **skip Part 1** and go directly to **Part 2**.
+> * **1. To reproduce our manuscript (Figs. 11, 12, 14):** You can use the pre-computed parameters from our paper (e.g., `ar_lag: 10`). These are the values provided in the reproduction table below. You can **skip Part 1** and go directly to **Part 2**.
 >
-> * **2. To Apply This Method to New Data (Your Station/Volcano):** This is a two-step process:
+> * **2. To apply this method to new data (different station/volcano):** this is a two-step process:
 >     1.  First, you **must** run the scripts in **Part 1** (e.g., `optimal_AR_lag.py`) on your new data to determine its unique optimal parameters.
 >     2.  Second, you **must** manually enter those new, custom parameters (your new lag, window size, etc.) into the `CONFIG` of the **Part 2** scripts (e.g., `generate_spectral_detection_plot.py`) to run the validation.
 
