@@ -141,7 +141,7 @@ Before you begin, you need to install Git and a specific version of Python.
     1.  Download and install Git for Windows: [https://git-scm.com/download/win](https://git-scm.com/download/win)
     2.  During installation, accept the default settings. Ensure you are on the page "Adjusting your PATH environment" and that the recommended option, **"Git from the command line and also from 3rd-party software"**, is selected.
 
-### 2. Installation steps
+#### 2. Installation steps
 
 1.  **Open command prompt**
     Press the Windows key, type `cmd`, and press Enter.
@@ -198,6 +198,7 @@ python code/AR_lag_validation.py
 
 # To generate the Threshold (T1)
 python code/generate_spectral_threshold.py
+```
 
 (Note: You can edit the CONFIG at the top of each script to change stations, components, etc.)
 
