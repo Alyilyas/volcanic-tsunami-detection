@@ -45,7 +45,7 @@ To ensure the methods are transparent and reproducible, a sample dataset is incl
 
 ---
 
-## Methodology and parameter determination (Figs. 5, 6, 9)
+## Methodology and parameter determination (Figs. 5, 6, 9, 10)
 
 This section summarizes the key parameters used in the analysis. For a full, detailed justification, please refer to the main manuscript.
 
@@ -68,7 +68,7 @@ This analysis, detailed in **Manuscript section 3.1**, identified a range of the
     1.  **Theoretical minimum:** Signal processing theory (Reyes & Forgach, 2016) dictates that a 10-second (200-sample) window is the *minimum* required to reliably resolve our 0.1 Hz target frequency (with a 20 Hz sampling rate) and prevent spectral leakage.
     2.  **Data-driven validation:** We confirmed this theoretical minimum using the **Bayesian Information Criterion (BIC)** (Schwarz, 1978). As detailed in the manuscript section 3.2 (and supplementary information section S3), this data-driven method consistently selected optimal window sizes very close to 200 samples when applied to both the flank collapse event (e.g., 198-207 samples) and the entire dataset (mean of ~209 samples).
 
-### 4. Autoregressive (AR) model selection — (Manuscript Fig. 9)
+### 4. Autoregressive (AR) model selection — (Manuscript Fig. 9 & 10)
 
 We fit a rolling autoregressive (AR) model to the data. The model order ($p$) and its validity were determined using a rigorous, window-by-window process:
 
@@ -175,7 +175,18 @@ Before you begin, you need to install Git and a specific version of Python.
 
 ## 🚀 How to reproduce manuscript figures
 
-This guide explains how to reproduce all key figures from the manuscript, which are split into two parts corresponding to the flowchart.
+This guide explains how to reproduce all key figures. It is split into two logical parts, corresponding to the flowchart.
+
+> **Important Note on Workflows:**
+> This repository supports two distinct workflows:
+>
+> * **1. To Reproduce Our Manuscript (Figs. 11, 12, 14):** You can use the pre-computed parameters from our paper (e.g., `ar_lag: 10`). These are the values provided in the reproduction table below. You can **skip Part 1** and go directly to **Part 2**.
+>
+> * **2. To Apply This Method to New Data (Your Station/Volcano):** This is a two-step process:
+>     1.  First, you **must** run the scripts in **Part 1** (e.g., `optimal_AR_lag.py`) on your new data to determine its unique optimal parameters.
+>     2.  Second, you **must** manually enter those new, custom parameters (your new lag, window size, etc.) into the `CONFIG` of the **Part 2** scripts (e.g., `generate_spectral_detection_plot.py`) to run the validation.
+
+---
 
 #### Part 1: parameter & threshold generation (Figs. 5, 6, 9, 10, & T1)
 
