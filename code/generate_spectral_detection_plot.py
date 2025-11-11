@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 # --- 1. CONFIGURATION ---
 CONFIG = {
     # Analysis parameters
-    "threshold_percentile": 80,  # Anomaly detection threshold. 99.9 sets the significance level (alpha) to 0.001.
+    "threshold_percentile": 99.9,  # Anomaly detection threshold. 99.9 sets the significance level (alpha) to 0.001.
                                    # This controls the false positive rate, aiming for 1 false positive per 1000 events.
     "fs": 20,  # Sampling rate in Hz
     "ar_lag": 10,  # Lag for the AR model
