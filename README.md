@@ -9,25 +9,13 @@ This repository contains the data and code for the manuscript (Ilyas et al, 2026
 ![Workflow flowchart of the offline and online settings](./output/figures/OFFLINE_SETTING1.png)
 As illustrated in the annotated diagram, the analysis framework is divided into two distinct settings:
 
-#### 1. Offline Setting (parameter & threshold generation): This stage uses historical data to build the detection model. It consists of two parts:
+1.  **Offline setting (parameter & threshold generation):** This stage uses historical data to build the detection model. It consists of two parts:
+    * **Parameter determination (Figs. 5, 6, 9, 10):** First, we determine the optimal parameters for frequency, window size, and AR lag, and validate the AR model. This is detailed in the **"Methodology"** section.
+    * **Threshold generation (T1):** Second, we use those parameters to bootstrap the baseline eruption data and determine the final 99.9% detection threshold.
 
-* **Parameter determination (Figs. 5, 6, 8):** First, we determine the optimal parameters for frequency, window size, and AR lag. This is detailed in the "Methodology" section below.
+2.  **Online setting (system validation - Fig. 11):** This stage represents the real-time application and its validation. It takes a new data stream (like the 2018 flank collapse), compares its FFT magnitude to the threshold (T1), and raises an alarm if exceeded.
 
-* **Threshold generation (Fig. 14):** Second, we use those parameters to bootstrap the baseline eruption data and determine the final 99.9% detection threshold.
-
-#### 2. Online Setting (system validation - Fig. 11): This stage represents the real-time application and its validation. It takes a new data stream (like the 2018 flank collapse), compares its FFT magnitude to the threshold, and raises an alarm if exceeded.
-
-The core of the methodology involves:
-
-1\.  Fitting a rolling autoregressive (AR) model to seismic data to generate predictions and residuals.
-
-2\.  Using bootstrap resampling on the residuals to construct a 99.9% prediction interval for the signal's spectral magnitude.
-
-3\.  Establishing a conservative detection threshold based on the most extreme spectral values from powerful, non-tsunamigenic baseline eruptions.
-
-4\.  Applying this threshold to the flank collapse event to test for rapid detection.
-
-
+The code in this repository is designed to reproduce these key figures. The **"Methodology"** section explains the "Parameter Determination" steps, and the **"How to reproduce manuscript figures"** section explains how to run the scripts to generate all figures.
 
 ---
 
