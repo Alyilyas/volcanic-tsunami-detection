@@ -11,10 +11,8 @@ from datetime import datetime, timedelta
 # --- 1. CONFIGURATION ---
 CONFIG = {
     # Analysis parameters
-    "threshold_percentile": 80,  # Anomaly detection threshold. 99.9 sets the significance level (alpha) to 0.001.
-                                   # This controls the false positive rate, aiming for 1 false positive per 1000 events.
     "fs": 20,  # Sampling rate in Hz
-    "ar_lag": 10,  # Lag for the AR model
+    "ar_lag": 11,  # Lag for the AR model
     "train_points": 200,  # Points for AR model training window
     "pred_points": 200,  # Points for AR model prediction window
     "analysis_window": 200,  # Points for the final analysis window (bootstrap/FFT)
@@ -23,8 +21,8 @@ CONFIG = {
     "target_frequency": 0.1,  # Target frequency in Hz for FFT analysis
 
     # File and data parameters
-    "station": 'SBJI',
-    "component": 'BHE',
+    "station": 'KMSI',
+    "component": 'BHZ',
     "motion_type": 'd',  # 'd' for displacement, 'v' for velocity, 'a' for acceleration
     #"data_dir": Path("."),  # Assumes data files are in the same directory as the script
     "data_dir": Path("data"),  # Assumes data files are in the other folder we need to specify the path
@@ -32,10 +30,10 @@ CONFIG = {
 
     # Plotting parameters
     "data_start_time_utc": "13:54:00",  # The UTC start time of the data files
-    "event_start_time": 108,  # In seconds from data start above, pre-defined flank collapse happened around 13:55:48 UTC
+    "event_start_time": 108,  # In seconds from data start above, pre-defined 17 April 2024 Eruption happened around 13:55:48 UTC
     "seismic_arrival_time": None,  # This will be set automatically below
     "plot_colors": {
-        "Flank collapse": "blue",
+        "17 April 2024 Eruption": "blue",
         "Volcanic 1": "red",
         "Volcanic 2": "green",
         "Volcanic 3": "purple"
@@ -101,7 +99,7 @@ def perform_rolling_ar_forecast(data, config):
     return predicted_data, residuals
 
 
-def calculate_bootstrap_spectra(original_data, predicted_data, residuals, config, lower_p, upper_p):
+def calculate_bootstrap_spectra(original_data, predicted_data, residuals, config):
     """Performs sliding window bootstrap analysis to get spectral confidence intervals."""
     window_size, step = config["analysis_window"], config["step"]
     time_stamps, magnitudes, lower_bounds, upper_bounds = [], [], [], []
@@ -131,8 +129,8 @@ def calculate_bootstrap_spectra(original_data, predicted_data, residuals, config
 
         all_bootstrap_magnitudes.append(bootstrap_magnitudes_for_window)
         magnitudes.append(get_fft_magnitude(window_orig, config["target_frequency"], config["fs"]))
-        lower_bounds.append(np.percentile(bootstrap_magnitudes_for_window, lower_p))
-        upper_bounds.append(np.percentile(bootstrap_magnitudes_for_window, upper_p))
+        lower_bounds.append(np.percentile(bootstrap_magnitudes_for_window, 0.05))
+        upper_bounds.append(np.percentile(bootstrap_magnitudes_for_window, 99.95))
         time_stamps.append((start_idx + window_size) / config["fs"])
 
     return (np.array(time_stamps), np.array(magnitudes), np.array(lower_bounds),
@@ -162,7 +160,7 @@ def plot_results(all_results, threshold, exceeding_time, config):
             plt.axvline(x=i, color='gray', linestyle='--', linewidth=0.2)
 
     # Add thinner, lighter vertical lines at every step (subdivisions)
-    if step_duration_seconds > 0:   
+    if step_duration_seconds > 0:
         for i in np.arange(0, max_time + 1, step_duration_seconds):
             plt.axvline(x=i, color='lightgray', linestyle='--', linewidth=0.1)
 
@@ -170,16 +168,16 @@ def plot_results(all_results, threshold, exceeding_time, config):
     start_dt = datetime.strptime(config["data_start_time_utc"], "%H:%M:%S")
 
     # Calculate and format the timestamps for the legend
-    event_start_dt = start_dt + timedelta(seconds=config["event_start_time"])
-    event_start_label = f"Event start time ({event_start_dt.strftime('%H:%M:%S')})"
+    #event_start_dt = start_dt + timedelta(seconds=config["event_start_time"])
+    #event_start_label = f"Event Start Time ({event_start_dt.strftime('%H:%M:%S')})"
 
-    arrival_dt = start_dt + timedelta(seconds=config["seismic_arrival_time"])
-    arrival_label = f"Seismic wave arrival ({arrival_dt.strftime('%H:%M:%S')})"
+    #arrival_dt = start_dt + timedelta(seconds=config["seismic_arrival_time"])
+    #arrival_label = f"Seismic Wave Arrival ({arrival_dt.strftime('%H:%M:%S')})"
 
     # Draw threshold and event markers with new UTC labels
     plt.axhline(y=threshold, color='black', linestyle='--', label=f"Threshold = {threshold:.5f}", linewidth=2)
-    plt.axvline(x=config["event_start_time"], color='gray', linestyle='--', label=event_start_label, linewidth=2)
-    plt.axvline(x=config["seismic_arrival_time"], color='blue', linestyle='--', label=arrival_label, linewidth=2)
+    #plt.axvline(x=config["event_start_time"], color='gray', linestyle='--', label=event_start_label, linewidth=2)
+    #plt.axvline(x=config["seismic_arrival_time"], color='blue', linestyle='--', label=arrival_label, linewidth=2)
 
     if exceeding_time is not None:
         exceeding_dt = start_dt + timedelta(seconds=exceeding_time)
@@ -204,28 +202,18 @@ def plot_results(all_results, threshold, exceeding_time, config):
 
 def main():
     """Main function to run the entire analysis workflow."""
-    # --- Calculate percentile values from CONFIG ---
-    # This reads the 99.9 value you added
-    confidence_p = CONFIG["threshold_percentile"]
 
-    # Calculate alpha (the significance level), e.g., (100 - 99.9) / 100 = 0.001
-    alpha = (100.0 - confidence_p) / 100.0
-
-    # For the two-sided confidence interval
-    lower_percentile = 0
-    upper_percentile = 100
-    # For the one-sided threshold
-    threshold_percentile = (1.0 - alpha) * 100.0  # e.g., (1 - 0.001) * 100 = 99.9
     # --- Automatically set the arrival time, the time based on previous study ---
+    '''
     station_code = CONFIG["station"]
     if station_code in STATION_ARRIVAL_TIMES:
         CONFIG["seismic_arrival_time"] = STATION_ARRIVAL_TIMES[station_code]
     else:
         print(f"Warning: Arrival time for station '{station_code}' not defined. Defaulting to None.")
         CONFIG["seismic_arrival_time"] = 0
-
+    '''
     data_files = {
-        "Flank collapse": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}.txt",
+        "17 April 2024 Eruption": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}.txt",
         "Volcanic 1": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}1.txt",
         "Volcanic 2": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}2.txt",
         "Volcanic 3": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}3.txt"
@@ -242,28 +230,27 @@ def main():
         if seismic_data is None:
             continue
 
-        # NEW (pass the new variables):
         predicted_data, residuals = perform_rolling_ar_forecast(seismic_data, CONFIG)
         time, mag, low, high, all_boot_mags = calculate_bootstrap_spectra(seismic_data, predicted_data, residuals,
-                                                                          CONFIG, lower_percentile, upper_percentile)
+                                                                          CONFIG)
 
         all_results[event_name] = {"time": time, "magnitude": mag, "lower": low, "upper": high}
 
-        if event_name != "Flank collapse":
+        if event_name != "17 April 2024 Eruption":
             for window_boot_mags in all_boot_mags:
                 if window_boot_mags:
-                    percentile_val = np.percentile(window_boot_mags, threshold_percentile)  # <-- Now dynamic
+                    percentile_val = np.percentile(window_boot_mags, 99.9)
                     if np.isfinite(percentile_val):
                         max_fft_value = max(max_fft_value, percentile_val)
 
     if not np.isfinite(max_fft_value) or max_fft_value < 0:
         max_fft_value = 0.0
 
-    print(f"--- Analysis complete. Final threshold = {max_fft_value:.5f} ---")
+    print(f"--- Analysis Complete. Final Threshold = {max_fft_value:.5f} ---")
 
     exceeding_time = None
-    if "Flank collapse" in all_results:
-        fc_results = all_results["Flank collapse"]
+    if "17 April 2024 Eruption" in all_results:
+        fc_results = all_results["17 April 2024 Eruption"]
         if fc_results['magnitude'].size > 0:
             exceeding_indices = np.where(fc_results['magnitude'] > max_fft_value)[0]
             if len(exceeding_indices) > 0:
