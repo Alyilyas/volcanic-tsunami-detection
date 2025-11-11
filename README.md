@@ -230,7 +230,7 @@ The resulting plot will be saved in the `/output/figures` directory.
 
 | Figure | Script to Run | Parameters to Set in `CONFIG` | Notes |
 | :--- | :--- | :--- | :--- |
-| **Fig. 5** (FFT) | ``` bash python code/relevant_frequency.py``` | Edit `CONFIG` to select data:<br/>```python<br/>"stations": ['SBJI', 'CGJI', ...]<br/>"components": ['BHE', 'BHN', ...]<br/>``` | Run script directly. Edit `CONFIG` to run on different stations/components. |
+| **Fig. 5** (FFT) | `python code/relevant_frequency.py` | Edit `CONFIG` to select data:<br/>```python<br/>"stations": ['SBJI', 'CGJI', ...]<br/>"components": ['BHE', 'BHN', ...]<br/>``` | Run script directly. Edit `CONFIG` to run on different stations/components. |
 | **Fig. 6** (BIC) | `python code/optimal_window_size.py` | Edit `CONFIG` to select data:<br/>```python<br/>"stations": ['SBJI', 'CGJI', ...]<br/>"components": ['BHE', 'BHN', ...]<br/>``` | Run script directly. Edit `CONFIG` to run on different stations/components. |
 | **Fig. 9** (AR Lag) | `python code/optimal_AR_lag.py` | Edit `CONFIG` to select data:<br/>```python<br/>"stations": ['SBJI', 'CGJI', ...]<br/>"components": ['BHE', 'BHN', ...]<br/>``` | Run script directly. Edit `CONFIG` to run on different stations/components. |
 | **Fig. 10** (ACF) | `python code/AR_lag_validation.py` | Edit `CONFIG` to select data:<br/>```python<br/>"stations": ['SBJI', 'CGJI', ...]<br/>"components": ['BHE', 'BHN', ...]<br/>``` | Run script directly. Edit `CONFIG` to run on different stations/components. |
