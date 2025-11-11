@@ -184,7 +184,7 @@ This guide explains how to reproduce all key figures. It is split into two logic
 >
 > * **2. To apply this method to new data (different station/volcano):** this is a two-step process:
 >     1.  First, you **must** run the scripts in **Part 1** (e.g., `optimal_AR_lag.py`) on your new data to determine its unique optimal parameters.
->     2.  Second, you **must** manually enter those new, custom parameters (your new lag, window size, etc.) into the `CONFIG` of the **Part 2** scripts (e.g., `generate_spectral_detection_plot.py`) to run the validation.
+>     2.  Second, you **must** manually enter those new, custom parameters (your new lag, window size, etc.) into the `CONFIG` of the **Part 2** scripts (e.g., `generate_spectral_threshold.py`) to run the validation.
 
 ---
 
