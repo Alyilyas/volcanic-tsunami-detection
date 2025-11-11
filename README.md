@@ -200,7 +200,7 @@ python code/AR_lag_validation.py
 python code/generate_spectral_threshold.py
 ```
 
-(Note: You can edit the `CONFIG` at the top of each script to change stations, components, etc.)
+(Note: You need to edit the `CONFIG` at the top of each script if you want to run the script at specific stations, components, etc.)
 
 #### Part 2: spectral detection
 
