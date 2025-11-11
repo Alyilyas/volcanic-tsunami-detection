@@ -9,13 +9,13 @@ This repository contains the data and code for the manuscript (Ilyas et al, 2026
 ![Workflow flowchart of the offline and online settings](./output/figures/OFFLINE_SETTING1.png)
 As illustrated in the annotated diagram, the analysis framework is divided into two distinct settings:
 
-### 1. Offline Setting (Parameter & Threshold Generation): This stage uses historical data to build the detection model. It consists of two parts:
+### 1. Offline Setting (parameter & threshold generation): This stage uses historical data to build the detection model. It consists of two parts:
 
-* **Parameter Determination (Figs. 5, 6, 8):** First, we determine the optimal parameters for frequency, window size, and AR lag. This is detailed in the "Methodology" section below.
+* **Parameter determination (Figs. 5, 6, 8):** First, we determine the optimal parameters for frequency, window size, and AR lag. This is detailed in the "Methodology" section below.
 
-* **Threshold Generation (Fig. 14):** Second, we use those parameters to bootstrap the baseline eruption data and determine the final 99.9% detection threshold.
+* **Threshold generation (Fig. 14):** Second, we use those parameters to bootstrap the baseline eruption data and determine the final 99.9% detection threshold.
 
-### 2. Online Setting (System Validation - Fig. 11): This stage represents the real-time application and its validation. It takes a new data stream (like the 2018 flank collapse), compares its FFT magnitude to the threshold, and raises an alarm if exceeded.
+### 2. Online Setting (system validation - Fig. 11): This stage represents the real-time application and its validation. It takes a new data stream (like the 2018 flank collapse), compares its FFT magnitude to the threshold, and raises an alarm if exceeded.
 
 The core of the methodology involves:
 
