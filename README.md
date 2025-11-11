@@ -39,9 +39,9 @@ The core of the methodology involves:
     -   `optimal_window_size.py`: Generates Figure 6 (BIC).
     -   `optimal_AR_lag.py`: Generates Figure 9 (AR Lag).
     -   `AR_lag_validation.py`: Generates Figure 10 (ACF Validation).
-    -   `generate_spectral_threshold.py`: Generates threshold.
+    -   `generate_spectral_threshold.py`: Generates threshold (T1).
     -   `generate_spectral_detection_plot.py`: Generates Figure 11 & 12 (Main validation).
-    -   `generate_spectral_detection_plot_ruang.py`: (Optional) An alternative validation script (Figure 14).
+    -   `generate_spectral_detection_plot_ruang.py`: (Optional) An alternative validation script for ruang volcano (Figure 14).
 -   `/data`: Contains the sample dataset used to run the analysis.
 -   `/output/figures`: The default directory where generated figures are saved.
 -   `requirements.txt`: The file listing all required Python packages for reproducibility.
