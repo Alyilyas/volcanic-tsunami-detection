@@ -283,7 +283,7 @@ If you use this code or methodology in your research, please cite our manuscript
 
 
 
-> \[Ilyas, A., et al. (2026). A statistical framework for the near real-time seismic detection of tsunami-generating volcanic flank collapses Focused on Anak krakatau.]
+> \[Ilyas, A., et al. (under review). A statistical framework for the near real-time seismic detection of tsunami-generating volcanic flank collapses Focused on Anak krakatau.]
 
 ---
 
