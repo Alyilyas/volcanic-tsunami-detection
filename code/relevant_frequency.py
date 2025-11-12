@@ -68,8 +68,9 @@ def plot_fft_for_case(ax, station, component, config):
             # FFT Calculation
             n = len(data)
             data_detrended = data - np.mean(data)  # Detrend
-            freqs = np.fft.rfftfreq(n, d=1 / config["fs"])
-            fft_vals = np.abs(np.fft.rfft(data_detrended)) * (2 / n)  # Normalize
+            # The dataset used happens to be in same length, if the data length is not the same, we need to normalize by
+            # using "* (2 / n)" below:
+            fft_vals = np.abs(np.fft.rfft(data_detrended)) #* (2 / n)
 
             # Frequency filtering
             mask = (freqs >= config["freq_min"]) & (freqs <= config["freq_max"])
