@@ -248,7 +248,7 @@ The resulting plot will be saved in the `/output/figures` directory.
 | **Quick test for T1**| `python code/generate_spectral_threshold_test.py` | Run script directly. A fast, low-quality test using `n_bootstrap: 100`.<br/>Use this to verify the script runs without errors. |
 | **Fig. 11** | `python code/generate_fig_11.py` | Run script directly. Pre-configured to reproduce Figure 11 (non-overlapping windows, `step: 200`). |
 | **Fig. 12** | `python code/generate_fig_12.py` | Run script directly. Pre-configured to reproduce Figure 12 (1-second overlapping windows, `step: 20`). |
-| **Fig. 14** (Ruang) | `python code/generate_spectral_detection_plot_ruang.py` | Run script directly. This is a separate validation for the Ruang volcano.<br/> **Edit `CONFIG` in file:**<br/>`"component": 'BHE'`<br/>`"step": 200`<br/>`"n_bootstrap": 10000`<br/>`"ar_lag": 10`<br/><br/>|
+| **Fig. 14** (Ruang) | `python code/generate_spectral_detection_plot_ruang.py` | Run script directly. This is a separate, pre-configured validation script for the Ruang volcano. |
 | **Appendix B** | `python code/generate_spectral_detection_plot.py` | **Edit `CONFIG` in file:**<br/>`"station": 'CGJI'` (or other)<br/>`"component": 'BHE'` (or other)<br/>`"step": 200`<br/>`"n_bootstrap": 10000`<br/>`"ar_lag": 11` (or other)<br/><br/>Repeat for all station/component combinations. Check *Manuscript Table 1* for correct `ar_lag`. |
 | **Quick Test** | `python code/generate_spectral_detection_plot.py` | **Edit `CONFIG` in file:**<br/>`"n_bootstrap": 100`<br/><br/>Fast low-quality test. Set to `10000` for final, high-quality results. (Note: this will be computationally intensive). |
 
