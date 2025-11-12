@@ -18,7 +18,7 @@ CONFIG = {
     "pred_points": 200,  # Points for AR model prediction window
     "analysis_window": 200,  # Points for the final analysis window (bootstrap/FFT)
     "step": 200,  # Step size (20 for 1s overlapping step)
-    "n_bootstrap": 10000,  # Number of bootstrap iterations
+    "n_bootstrap": 100,  # Number of bootstrap iterations
     "target_frequency": 0.1,  # Target frequency in Hz for FFT analysis
 
     # --- Data and run parameters ---
