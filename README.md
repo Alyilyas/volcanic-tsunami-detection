@@ -53,7 +53,7 @@ This section summarizes the key parameters used in the analysis. For a full, det
 
 All raw seismic waveforms (described in `📊 Data availability`) were processed using the [ObsPy library for Python](https://obspy.org/) (Krischer et al., 2015) to perform instrument response correction, converting the data to displacement units.
 
-### 2. Optimal frequency selection (FFT) — (Manuscript Fig. 5)
+### 2. Relevant frequency selection (FFT) — (Manuscript Fig. 5)
 
 The first step was to identify a distinct frequency band where the flank collapse signal is most prominent compared to baseline volcanic activity.
 
