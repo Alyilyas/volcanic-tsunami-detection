@@ -11,29 +11,35 @@ from datetime import datetime, timedelta
 # --- 1. CONFIGURATION ---
 CONFIG = {
     # Analysis parameters
-    "threshold_percentile": 99.9,  # Anomaly detection threshold. 99.9 sets the significance level (alpha) to 0.001.
-                                   # This controls the false positive rate, aiming for 1 false positive per 1000 events.
+    "threshold_percentile": 99.9,  # Anomaly detection threshold (for 99.9% CI)
     "fs": 20,  # Sampling rate in Hz
-    "ar_lag": 10,  # Lag for the AR model
+    # "ar_lag" is now set from the table below
     "train_points": 200,  # Points for AR model training window
     "pred_points": 200,  # Points for AR model prediction window
     "analysis_window": 200,  # Points for the final analysis window (bootstrap/FFT)
-    "step": 20,  # Step size (200 for non-overlapping, <200 for overlapping, 20 for overlapping with 1s step)
-    "n_bootstrap": 100,  # Number of bootstrap iterations, pls change to 10000
+    "step": 200,  # Step size (20 for 1s overlapping step)
+    "n_bootstrap": 10000,  # Number of bootstrap iterations
     "target_frequency": 0.1,  # Target frequency in Hz for FFT analysis
 
-    # File and data parameters
-    "station": 'SBJI',
-    "component": 'BHE',
-    "motion_type": 'd',  # 'd' for displacement, 'v' for velocity, 'a' for acceleration
-    #"data_dir": Path("."),  # Assumes data files are in the same directory as the script
-    "data_dir": Path("data"),  # Assumes data files are in the other folder we need to specify the path
+    # --- Data and run parameters ---
+    "stations_list": ['CGJI', 'LWLI', 'MDSI', 'SBJI'],
+    "components_list": ['BHE', 'BHN', 'BHZ'],
+    "motion_type": 'd',  # 'd' for displacement
+    "data_dir": Path("data"),  # Assumes data files are in the data/ folder
     "save_dir": Path("output/figures"),
+
+    # --- AR Lag Lookup Table (from Manuscript Table 1) ---
+    "AR_LAG_TABLE": {
+        'CGJI': {'BHE': 10, 'BHN': 10, 'BHZ': 11},
+        'SBJI': {'BHE': 10, 'BHN': 11, 'BHZ': 10},
+        'LWLI': {'BHE': 9, 'BHN': 8, 'BHZ': 9},
+        'MDSI': {'BHE': 12, 'BHN': 11, 'BHZ': 12}
+    },
 
     # Plotting parameters
     "data_start_time_utc": "13:54:00",  # The UTC start time of the data files
-    "event_start_time": 108,  # In seconds from data start above, pre-defined flank collapse happened around 13:55:48 UTC
-    "seismic_arrival_time": None,  # This will be set automatically below
+    "event_start_time": 108,  # In seconds from data start (13:55:48 UTC)
+    "seismic_arrival_time": None,  # This will be set automatically
     "plot_colors": {
         "Flank collapse": "blue",
         "Volcanic 1": "red",
@@ -42,7 +48,7 @@ CONFIG = {
     }
 }
 
-# --- Arrival time mapping pre-defined based on previous research---
+# --- Arrival time mapping ---
 STATION_ARRIVAL_TIMES = {
     "CGJI": 121,
     "SBJI": 125,
@@ -59,7 +65,7 @@ def load_seismic_data(file_path):
         data = pd.read_csv(file_path, header=None)
         return data[0].astype(float).values
     except FileNotFoundError:
-        print(f"Error: Data file not found at {file_path}")
+        print(f"    Error: Data file not found at {file_path}")
         return None
 
 
@@ -69,7 +75,7 @@ def get_fft_magnitude(data, freq, sampling_rate):
     n = len(data)
     if n == 0:
         return 0.0
-    data = data - np.mean(data)  # Reduce DC component, optional but helpful for low frequency
+    data = data - np.mean(data)
     fft_vals = np.abs(fft(data))[:n // 2]
     freqs = np.fft.fftfreq(n, d=1 / sampling_rate)[:n // 2]
     if freqs.size == 0:
@@ -96,7 +102,6 @@ def perform_rolling_ar_forecast(data, config):
             predicted_data[j + train_size: j + window_size] = predictions
             residuals[j + train_size: j + window_size] = true_values - predictions
         except Exception as e:
-            # Leave NaNs for failed windows, they will be skipped
             continue
     return predicted_data, residuals
 
@@ -139,47 +144,43 @@ def calculate_bootstrap_spectra(original_data, predicted_data, residuals, config
             np.array(upper_bounds), all_bootstrap_magnitudes)
 
 
-def plot_results(all_results, threshold, exceeding_time, config):
+def plot_results(all_results, threshold, exceeding_time, config, station, component):
     """Generates and saves the final plot with UTC time labels and window markers."""
     plt.figure(figsize=(12, 6))
+
+    # Use the specific arrival time from the config
+    seismic_arrival_time = config["seismic_arrival_time"]
 
     max_time = 0
     for event_name, result in all_results.items():
         if result['time'].size > 0:
-            # Find the maximum time value across all events to set the plot range
             max_time = max(max_time, result['time'][-1])
             color = config["plot_colors"].get(event_name, 'gray')
             plt.plot(result['time'], result['magnitude'], label=event_name, color=color, linewidth=2)
             plt.fill_between(result['time'], result['lower'], result['upper'], color=color, alpha=0.3)
 
-    # Calculate durations in seconds from the config
     window_duration_seconds = config["analysis_window"] / config["fs"]
     step_duration_seconds = config["step"] / config["fs"]
 
-    # Add vertical dashed lines at every analysis window (main divisions)
     if window_duration_seconds > 0:
         for i in np.arange(0, max_time + 1, window_duration_seconds):
             plt.axvline(x=i, color='gray', linestyle='--', linewidth=0.2)
 
-    # Add thinner, lighter vertical lines at every step (subdivisions)
-    if step_duration_seconds > 0:   
+    if step_duration_seconds > 0:
         for i in np.arange(0, max_time + 1, step_duration_seconds):
             plt.axvline(x=i, color='lightgray', linestyle='--', linewidth=0.1)
 
-    # Convert base time string to a datetime object for labeling
     start_dt = datetime.strptime(config["data_start_time_utc"], "%H:%M:%S")
 
-    # Calculate and format the timestamps for the legend
     event_start_dt = start_dt + timedelta(seconds=config["event_start_time"])
     event_start_label = f"Event start time ({event_start_dt.strftime('%H:%M:%S')})"
 
-    arrival_dt = start_dt + timedelta(seconds=config["seismic_arrival_time"])
+    arrival_dt = start_dt + timedelta(seconds=seismic_arrival_time)
     arrival_label = f"Seismic wave arrival ({arrival_dt.strftime('%H:%M:%S')})"
 
-    # Draw threshold and event markers with new UTC labels
     plt.axhline(y=threshold, color='black', linestyle='--', label=f"Threshold = {threshold:.5f}", linewidth=2)
     plt.axvline(x=config["event_start_time"], color='gray', linestyle='--', label=event_start_label, linewidth=2)
-    plt.axvline(x=config["seismic_arrival_time"], color='blue', linestyle='--', label=arrival_label, linewidth=2)
+    plt.axvline(x=seismic_arrival_time, color='blue', linestyle='--', label=arrival_label, linewidth=2)
 
     if exceeding_time is not None:
         exceeding_dt = start_dt + timedelta(seconds=exceeding_time)
@@ -188,42 +189,54 @@ def plot_results(all_results, threshold, exceeding_time, config):
 
     plt.xlabel("Time (seconds)", fontsize=18)
     plt.ylabel("FFT magnitude", fontsize=18)
+    plt.title(f"Spectral Detection: {station}-{component} (AR Lag: {config['ar_lag']}, Step: {config['step']}s)")
     plt.ylim(0, 0.0016)
     plt.legend(fontsize=14, loc='upper right')
     plt.tick_params(axis='both', labelsize=14)
     plt.grid(True)
 
     config["save_dir"].mkdir(parents=True, exist_ok=True)
-    filename = f'fft_{config["motion_type"]}_{config["station"]}_{config["component"]}_{config["step"]}step.png'
+    # Create a unique filename for each plot
+    filename = f'fft_{config["motion_type"]}_{station}_{component}_{config["step"]}step.png'
     full_path = config["save_dir"] / filename
     plt.savefig(full_path, dpi=300, bbox_inches='tight')
-    plt.show()
+    # plt.show() # Disabled for batch processing
+    plt.close()  # Close the figure to save memory
+    print(f"    Plot saved to {full_path}")
 
 
-# --- 3. MAIN WORKFLOW ---
+# --- 3. ANALYSIS FUNCTION (The old 'main') ---
 
-def main():
-    """Main function to run the entire analysis workflow."""
+def run_analysis_for_pair(station, component, ar_lag):
+    """Runs the entire analysis workflow for a single station-component pair."""
+
+    print(f"\n--- Starting analysis for {station}-{component} (AR Lag: {ar_lag}) ---")
+
+    # --- Set temporary config values for this run ---
+    # We modify the global CONFIG directly for this single-threaded script
+    CONFIG["ar_lag"] = ar_lag
+    CONFIG["station"] = station
+    CONFIG["component"] = component
+
     # --- Calculate percentile values from CONFIG ---
-    # This reads the 99.9 value you added
     confidence_p = CONFIG["threshold_percentile"]
+    alpha = (100.0 - confidence_p) / 100.0  # e.g., (100 - 99.9) / 100 = 0.001
 
-    # Calculate alpha (the significance level), e.g., (100 - 99.9) / 100 = 0.001
-    alpha = (100.0 - confidence_p) / 100.0
+    # Corrected two-sided CI for the plot
+    lower_percentile = (alpha / 2.0) * 100.0  # e.g., 0.05
+    upper_percentile = (1.0 - (alpha / 2.0)) * 100.0  # e.g., 99.95
+    # One-sided threshold for detection
+    threshold_percentile = (1.0 - alpha) * 100.0  # e.g., 99.9
 
-    # For the two-sided confidence interval
-    lower_percentile = 0
-    upper_percentile = 100
-    # For the one-sided threshold
-    threshold_percentile = (1.0 - alpha) * 100.0  # e.g., (1 - 0.001) * 100 = 99.9
-    # --- Automatically set the arrival time, the time based on previous study ---
+    # --- Automatically set the arrival time ---
     station_code = CONFIG["station"]
     if station_code in STATION_ARRIVAL_TIMES:
         CONFIG["seismic_arrival_time"] = STATION_ARRIVAL_TIMES[station_code]
     else:
-        print(f"Warning: Arrival time for station '{station_code}' not defined. Defaulting to None.")
+        print(f"    Warning: Arrival time for station '{station_code}' not defined. Defaulting to 0.")
         CONFIG["seismic_arrival_time"] = 0
 
+    # --- Define data files dynamically ---
     data_files = {
         "Flank collapse": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}.txt",
         "Volcanic 1": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}1.txt",
@@ -234,33 +247,33 @@ def main():
     all_results = {}
     max_fft_value = -np.inf
 
-    print("--- Starting analysis ---")
     for event_name, filename in data_files.items():
-        print(f"Processing {event_name} from {filename}...")
+        print(f"  Processing {event_name} from {filename}...")
         file_path = CONFIG['data_dir'] / filename
         seismic_data = load_seismic_data(file_path)
         if seismic_data is None:
             continue
 
-        # NEW (pass the new variables):
         predicted_data, residuals = perform_rolling_ar_forecast(seismic_data, CONFIG)
         time, mag, low, high, all_boot_mags = calculate_bootstrap_spectra(seismic_data, predicted_data, residuals,
                                                                           CONFIG, lower_percentile, upper_percentile)
 
         all_results[event_name] = {"time": time, "magnitude": mag, "lower": low, "upper": high}
 
+        # Calculate threshold *only* from non-flank-collapse events
         if event_name != "Flank collapse":
             for window_boot_mags in all_boot_mags:
                 if window_boot_mags:
-                    percentile_val = np.percentile(window_boot_mags, threshold_percentile)  # <-- Now dynamic
+                    percentile_val = np.percentile(window_boot_mags, threshold_percentile)
                     if np.isfinite(percentile_val):
                         max_fft_value = max(max_fft_value, percentile_val)
 
     if not np.isfinite(max_fft_value) or max_fft_value < 0:
         max_fft_value = 0.0
 
-    print(f"--- Analysis complete. Final threshold = {max_fft_value:.5f} ---")
+    print(f"  -> Analysis complete. Final threshold = {max_fft_value:.5f}")
 
+    # --- Find detection time ---
     exceeding_time = None
     if "Flank collapse" in all_results:
         fc_results = all_results["Flank collapse"]
@@ -268,9 +281,37 @@ def main():
             exceeding_indices = np.where(fc_results['magnitude'] > max_fft_value)[0]
             if len(exceeding_indices) > 0:
                 exceeding_time = float(fc_results['time'][exceeding_indices[0]])
-                print(f"--- Threshold first exceeded at: {exceeding_time:.2f} seconds ---")
+                print(f"  -> Threshold first exceeded at: {exceeding_time:.2f} seconds")
 
-    plot_results(all_results, max_fft_value, exceeding_time, CONFIG)
+    # --- Plot results for this pair ---
+    plot_results(all_results, max_fft_value, exceeding_time, CONFIG, station, component)
+
+
+# --- 4. MAIN WORKFLOW (New master loop) ---
+
+def main():
+    """Main function to loop over all pairs and run the analysis."""
+    stations_list = CONFIG["stations_list"]
+    components_list = CONFIG["components_list"]
+
+    print("===== Starting Batch Analysis for All Station-Component Pairs =====")
+
+    for station in stations_list:
+        for component in components_list:
+            try:
+                # Look up the specific AR lag for this pair
+                ar_lag = CONFIG["AR_LAG_TABLE"][station][component]
+                # Run the entire analysis and plotting for this pair
+                run_analysis_for_pair(station, component, ar_lag)
+
+            except KeyError:
+                print(f"\n--- SKIPPING {station}-{component}: No AR Lag specified in AR_LAG_TABLE. ---")
+            except Exception as e:
+                print(f"\n--- FAILED: {station}-{component}. Error: {e} ---")
+                # Continue to the next pair even if one fails
+                pass
+
+    print("\n===== Batch analysis complete. =====")
 
 
 if __name__ == "__main__":
