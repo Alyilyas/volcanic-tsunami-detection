@@ -149,8 +149,8 @@ def main():
                 if row_idx == 0:
                     ax.set_title(component, fontsize=CONFIG["axis_fontsize"], pad=15)
 
-        fig.supxlabel('Window size (samples)', fontsize=CONFIG["label_fontsize"], y=0.06)
-        fig.supylabel('BIC score', fontsize=CONFIG["label_fontsize"], x=0.07)
+        fig.supxlabel('Window size', fontsize=CONFIG["label_fontsize"], y=0.06)
+        fig.supylabel(f'BIC score of {station}', fontsize=CONFIG["label_fontsize"], x=0.07)
 
         plt.tight_layout(rect=[0.08, 0.08, 1, 0.93])
 
