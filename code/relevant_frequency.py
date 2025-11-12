@@ -134,7 +134,7 @@ def main():
 
         fig.supxlabel(f"Frequency (Hz) [{CONFIG['freq_min']} - {CONFIG['freq_max']}]",
                       fontsize=CONFIG["label_fontsize"], y=0.06)
-        fig.supylabel('Normalized FFT amplitude (log scale)',
+        fig.supylabel('FFT amplitude (log scale)',
                       fontsize=CONFIG["label_fontsize"], x=0.07)
         fig.suptitle(f'FFT analysis - Station {station}',
                      fontsize=CONFIG["title_fontsize"], y=0.98)
