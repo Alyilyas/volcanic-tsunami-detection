@@ -249,8 +249,8 @@ The resulting plot will be saved in the `/output/figures` directory.
 | **Fig. 11** | `python code/generate_fig_11.py` | Run script directly. Pre-configured to reproduce Figure 11 (non-overlapping windows, `step: 200`). |
 | **Fig. 12** | `python code/generate_fig_12.py` | Run script directly. Pre-configured to reproduce Figure 12 (1-second overlapping windows, `step: 20`). |
 | **Fig. 14** (Ruang) | `python code/generate_spectral_detection_plot_ruang.py` | Run script directly. This is a separate, pre-configured validation script for the Ruang volcano. |
-| **Appendix B** | `python code/generate_spectral_detection_plot.py` | **Edit `CONFIG` in file:**<br/>`"station": 'CGJI'` (or other)<br/>`"component": 'BHE'` (or other)<br/>`"step": 200`<br/>`"n_bootstrap": 10000`<br/>`"ar_lag": 11` (or other)<br/><br/>Repeat for all station/component combinations. Check *Manuscript Table 1* for correct `ar_lag`. |
-| **Quick Test** | `python code/generate_spectral_detection_plot.py` | **Edit `CONFIG` in file:**<br/>`"n_bootstrap": 100`<br/><br/>Fast low-quality test. Set to `10000` for final, high-quality results. (Note: this will be computationally intensive). |
+| **Appendix B** (All Plots) | `python code/generate_spectral_detection_plot.py` | Run script directly. This script automatically runs the full analysis for **all 12 station-component pairs**.<br/>It uses the correct, specific `ar_lag` for each pair from the internal `AR_LAG_TABLE`.<br/>Generates all 12 plots for the appendix in `/output/figures/`.<br/>Uses the manuscript's `threshold_percentile: 99.9`.<br/>**(Note: This is computationally intensive.)** |
+| **Quick Test** (All Plots) | `python code/generate_spectral_detection_plot_quick_test.py` | Run script directly. A fast, low-quality test of the main appendix script, using `n_bootstrap: 100`.<br/>Use this to verify the full batch analysis runs without errors. |
 
 ---
 ## 📚 References
