@@ -1,14 +1,12 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 from statsmodels.tsa.ar_model import AutoReg
 from scipy.fft import fft
 from scipy.interpolate import interp1d
 import os
 from pathlib import Path
-from datetime import datetime, timedelta
 
-# --- 1. CONFIGURATION ---
+# --- 1. Configuration ---
 CONFIG = {
     # Analysis parameters
     "fs": 20,  # Sampling rate in Hz
@@ -16,40 +14,20 @@ CONFIG = {
     "train_points": 200,  # Points for AR model training window
     "pred_points": 200,  # Points for AR model prediction window
     "analysis_window": 200,  # Points for the final analysis window (bootstrap/FFT)
-    "step": 20,  # Step size (200 for non-overlapping, <200 for overlapping, 20 for overlapping with 1s step)
-    "n_bootstrap": 100,  # Number of bootstrap iterations, pls change to 10000
+    "step": 200,  # Step size (20 for overlapping with 1s step)
+    "n_bootstrap": 10000,  # Number of bootstrap iterations
     "target_frequency": 0.1,  # Target frequency in Hz for FFT analysis
 
-    # File and data parameters
-    "station": 'SBJI',
-    "component": 'BHE',
-    "motion_type": 'd',  # 'd' for displacement, 'v' for velocity, 'a' for acceleration
-    #"data_dir": Path("."),  # Assumes data files are in the same directory as the script
-    "data_dir": Path("data"),  # Assumes data files are in the other folder we need to specify the path
-    "save_dir": Path("output/figures"),
-
-    # Plotting parameters
-    "data_start_time_utc": "13:54:00",  # The UTC start time of the data files
-    "event_start_time": 108,  # In seconds from data start above, pre-defined 17 April 2024 Eruption happened around 13:55:48 UTC
-    "seismic_arrival_time": None,  # This will be set automatically below
-    "plot_colors": {
-        "17 April 2024 Eruption": "blue",
-        "Volcanic 1": "red",
-        "Volcanic 2": "green",
-        "Volcanic 3": "purple"
-    }
-}
-
-# --- Arrival time mapping pre-defined based on previous research---
-STATION_ARRIVAL_TIMES = {
-    "CGJI": 121,
-    "SBJI": 125,
-    "LWLI": 158,
-    "MDSI": 150
+    # --- Data and run parameters ---
+    "stations_list": ['CGJI', 'LWLI', 'MDSI', 'SBJI'],
+    "components_list": ['BHE', 'BHN', 'BHZ'],
+    "motion_type": 'd',  # 'd' for displacement
+    "data_dir": Path("data"),  # Assumes data files are in the data/ folder
+    "save_dir": Path("output"),  # Directory to save the final table
 }
 
 
-# --- 2. HELPER FUNCTIONS ---
+# --- 2. Helper functions ---
 
 def load_seismic_data(file_path):
     """Loads seismic data from a single-column text file."""
@@ -57,7 +35,7 @@ def load_seismic_data(file_path):
         data = pd.read_csv(file_path, header=None)
         return data[0].astype(float).values
     except FileNotFoundError:
-        print(f"Error: Data file not found at {file_path}")
+        print(f"    Error: Data file not found at {file_path}")
         return None
 
 
@@ -67,7 +45,7 @@ def get_fft_magnitude(data, freq, sampling_rate):
     n = len(data)
     if n == 0:
         return 0.0
-    data = data - np.mean(data)  # Reduce DC component, optional but helpful for low frequency
+    data = data - np.mean(data)  # Reduce DC component
     fft_vals = np.abs(fft(data))[:n // 2]
     freqs = np.fft.fftfreq(n, d=1 / sampling_rate)[:n // 2]
     if freqs.size == 0:
@@ -102,11 +80,11 @@ def perform_rolling_ar_forecast(data, config):
 def calculate_bootstrap_spectra(original_data, predicted_data, residuals, config):
     """Performs sliding window bootstrap analysis to get spectral confidence intervals."""
     window_size, step = config["analysis_window"], config["step"]
-    time_stamps, magnitudes, lower_bounds, upper_bounds = [], [], [], []
+    # We only need the 99.9 percentile for the threshold
     all_bootstrap_magnitudes = []
 
     if len(original_data) < window_size:
-        return np.array([]), np.array([]), np.array([]), np.array([]), []
+        return []  # Return empty list
 
     for start_idx in range(0, len(original_data) - window_size + 1, step):
         end_idx = start_idx + window_size
@@ -124,133 +102,116 @@ def calculate_bootstrap_spectra(original_data, predicted_data, residuals, config
             magnitude = get_fft_magnitude(synthetic_signal, config["target_frequency"], config["fs"])
             bootstrap_magnitudes_for_window.append(magnitude)
 
-        if not bootstrap_magnitudes_for_window:
-            continue
+        if bootstrap_magnitudes_for_window:
+            all_bootstrap_magnitudes.append(bootstrap_magnitudes_for_window)
 
-        all_bootstrap_magnitudes.append(bootstrap_magnitudes_for_window)
-        magnitudes.append(get_fft_magnitude(window_orig, config["target_frequency"], config["fs"]))
-        lower_bounds.append(np.percentile(bootstrap_magnitudes_for_window, 0.05))
-        upper_bounds.append(np.percentile(bootstrap_magnitudes_for_window, 99.95))
-        time_stamps.append((start_idx + window_size) / config["fs"])
-
-    return (np.array(time_stamps), np.array(magnitudes), np.array(lower_bounds),
-            np.array(upper_bounds), all_bootstrap_magnitudes)
+    # We return *only* the list of bootstrap magnitudes
+    return all_bootstrap_magnitudes
 
 
-def plot_results(all_results, threshold, exceeding_time, config):
-    """Generates and saves the final plot with UTC time labels and window markers."""
-    plt.figure(figsize=(12, 6))
-
-    max_time = 0
-    for event_name, result in all_results.items():
-        if result['time'].size > 0:
-            # Find the maximum time value across all events to set the plot range
-            max_time = max(max_time, result['time'][-1])
-            color = config["plot_colors"].get(event_name, 'gray')
-            plt.plot(result['time'], result['magnitude'], label=event_name, color=color, linewidth=2)
-            plt.fill_between(result['time'], result['lower'], result['upper'], color=color, alpha=0.3)
-
-    # Calculate durations in seconds from the config
-    window_duration_seconds = config["analysis_window"] / config["fs"]
-    step_duration_seconds = config["step"] / config["fs"]
-
-    # Add vertical dashed lines at every analysis window (main divisions)
-    if window_duration_seconds > 0:
-        for i in np.arange(0, max_time + 1, window_duration_seconds):
-            plt.axvline(x=i, color='gray', linestyle='--', linewidth=0.2)
-
-    # Add thinner, lighter vertical lines at every step (subdivisions)
-    if step_duration_seconds > 0:
-        for i in np.arange(0, max_time + 1, step_duration_seconds):
-            plt.axvline(x=i, color='lightgray', linestyle='--', linewidth=0.1)
-
-    # Convert base time string to a datetime object for labeling
-    start_dt = datetime.strptime(config["data_start_time_utc"], "%H:%M:%S")
-
-    # Calculate and format the timestamps for the legend
-    #event_start_dt = start_dt + timedelta(seconds=config["event_start_time"])
-    #event_start_label = f"Event Start Time ({event_start_dt.strftime('%H:%M:%S')})"
-
-    #arrival_dt = start_dt + timedelta(seconds=config["seismic_arrival_time"])
-    #arrival_label = f"Seismic Wave Arrival ({arrival_dt.strftime('%H:%M:%S')})"
-
-    # Draw threshold and event markers with new UTC labels
-    plt.axhline(y=threshold, color='black', linestyle='--', label=f"Threshold = {threshold:.5f}", linewidth=2)
-    #plt.axvline(x=config["event_start_time"], color='gray', linestyle='--', label=event_start_label, linewidth=2)
-    #plt.axvline(x=config["seismic_arrival_time"], color='blue', linestyle='--', label=arrival_label, linewidth=2)
-
-    if exceeding_time is not None:
-        exceeding_dt = start_dt + timedelta(seconds=exceeding_time)
-        exceeding_label = f"Threshold exceeded ({exceeding_dt.strftime('%H:%M:%S')})"
-        plt.axvline(x=exceeding_time, color='red', linestyle='--', label=exceeding_label, linewidth=2)
-
-    plt.xlabel("Time (seconds)", fontsize=18)
-    plt.ylabel("FFT magnitude", fontsize=18)
-    plt.ylim(0, 0.0016)
-    plt.legend(fontsize=14, loc='upper right')
-    plt.tick_params(axis='both', labelsize=14)
-    plt.grid(True)
-
-    config["save_dir"].mkdir(parents=True, exist_ok=True)
-    filename = f'fft_{config["motion_type"]}_{config["station"]}_{config["component"]}_{config["step"]}step.png'
-    full_path = config["save_dir"] / filename
-    plt.savefig(full_path, dpi=300, bbox_inches='tight')
-    plt.show()
-
-
-# --- 3. MAIN WORKFLOW ---
+# --- 3. Main workflow (modified for config-driven lists) ---
 
 def main():
-    """Main function to run the entire analysis workflow."""
+    """Main function to run the threshold generation for all station-components."""
 
-    # --- Automatically set the arrival time, the time based on previous study ---
-    '''
-    station_code = CONFIG["station"]
-    if station_code in STATION_ARRIVAL_TIMES:
-        CONFIG["seismic_arrival_time"] = STATION_ARRIVAL_TIMES[station_code]
-    else:
-        print(f"Warning: Arrival time for station '{station_code}' not defined. Defaulting to None.")
-        CONFIG["seismic_arrival_time"] = 0
-    '''
-    data_files = {
-        "Volcanic 1": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}1.txt",
-        "Volcanic 2": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}2.txt",
-        "Volcanic 3": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}3.txt"
-    }
+    # Read lists from CONFIG
+    stations_list = CONFIG["stations_list"]
+    components_list = CONFIG["components_list"]
 
-    all_results = {}
-    max_fft_value = -np.inf
+    all_thresholds = []  # To store results as a list of dictionaries
 
-    print("--- Starting analysis ---")
-    for event_name, filename in data_files.items():
-        print(f"Processing {event_name} from {filename}...")
-        file_path = CONFIG['data_dir'] / filename
-        seismic_data = load_seismic_data(file_path)
-        if seismic_data is None:
-            continue
+    print("Starting threshold generation for all station-components...")
 
-        predicted_data, residuals = perform_rolling_ar_forecast(seismic_data, CONFIG)
-        time, mag, low, high, all_boot_mags = calculate_bootstrap_spectra(seismic_data, predicted_data, residuals,
-                                                                          CONFIG)
+    # Outer loop for stations
+    for station in stations_list:
+        # Inner loop for components
+        for component in components_list:
 
-        all_results[event_name] = {"time": time, "magnitude": mag, "lower": low, "upper": high}
+            print(f"\nProcessing {station}-{component}...")
 
-        if event_name != "17 April 2024 Eruption":
-            for window_boot_mags in all_boot_mags:
-                if window_boot_mags:
-                    percentile_val = np.percentile(window_boot_mags, 99.9)
-                    if np.isfinite(percentile_val):
-                        max_fft_value = max(max_fft_value, percentile_val)
+            # 1. Update CONFIG so the data_files string formatting works
+            CONFIG["station"] = station
+            CONFIG["component"] = component
 
-    if not np.isfinite(max_fft_value) or max_fft_value < 0:
-        max_fft_value = 0.0
+            # 2. Define data files for *this* station/component
+            data_files = {
+                "Volcanic 1": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}1.txt",
+                "Volcanic 2": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}2.txt",
+                "Volcanic 3": f"{CONFIG['motion_type']}{CONFIG['station']}{CONFIG['component']}3.txt"
+            }
 
-    print(f"--- Analysis complete. Final threshold = {max_fft_value:.5f} ---")
+            # 3. Reset the threshold for this pair
+            max_fft_value = -np.inf
 
-    exceeding_time = None
+            # 4. Run the analysis on baseline events
+            for event_name, filename in data_files.items():
+                print(f"  Processing baseline file: {filename}")
+                file_path = CONFIG['data_dir'] / filename
+                seismic_data = load_seismic_data(file_path)
 
-    plot_results(all_results, max_fft_value, exceeding_time, CONFIG)
+                if seismic_data is None:
+                    continue  # Skip this file if not found
 
+                predicted_data, residuals = perform_rolling_ar_forecast(seismic_data, CONFIG)
+                # Get the list of bootstrap magnitudes for all windows
+                all_boot_mags = calculate_bootstrap_spectra(seismic_data, predicted_data, residuals, CONFIG)
+
+                # Find the max 99.9th percentile from all baseline events
+                for window_boot_mags in all_boot_mags:
+                    if window_boot_mags:  # if list is not empty
+                        percentile_val = np.percentile(window_boot_mags, 99.9)
+                        if np.isfinite(percentile_val):
+                            max_fft_value = max(max_fft_value, percentile_val)
+
+            # 5. Clean up and store the final threshold
+            if not np.isfinite(max_fft_value) or max_fft_value < 0:
+                max_fft_value = 0.0  # Set to 0.0 if no valid data was found
+
+            print(f"  -> Final threshold for {station}-{component}: {max_fft_value:.5f}")
+
+            # 6. Add to our results list
+            all_thresholds.append({
+                "Station": station,
+                "Component": component,
+                "Threshold": max_fft_value
+            })
+
+    # --- Loops finished, now create and display the table ---
+    print("\nOverall analysis complete.")
+
+    # Create DataFrame from the list of results
+    threshold_table = pd.DataFrame(all_thresholds)
+
+    # Pivot the table for a more readable format
+    try:
+        threshold_table_pivot = threshold_table.pivot(
+            index="Station",
+            columns="Component",
+            values="Threshold"
+        )
+
+        # Ensure columns are in the desired order
+        threshold_table_pivot = threshold_table_pivot.reindex(columns=components_list)
+
+        print("\nThreshold table (pivoted format):")
+        print(threshold_table_pivot.to_string(float_format="%.5f"))
+
+        # Save the pivoted table
+        CONFIG["save_dir"].mkdir(parents=True, exist_ok=True)
+        table_filename = CONFIG["save_dir"] / "detection_threshold_table.csv"
+        threshold_table_pivot.to_csv(table_filename, float_format="%.5f")
+        print(f"\nPivoted table saved to {table_filename}")
+
+    except Exception as e:
+        print(f"Could not pivot table. Error: {e}")
+        print("\nThreshold table (flat format):")
+        print(threshold_table.to_string(float_format="%.5f"))
+
+        # Save the flat table as a fallback
+        CONFIG["save_dir"].mkdir(parents=True, exist_ok=True)
+        table_filename_flat = CONFIG["save_dir"] / "detection_threshold_list.csv"
+        threshold_table.to_csv(table_filename_flat, index=False, float_format="%.5f")
+        print(f"Flat list saved to {table_filename_flat}")
 
 if __name__ == "__main__":
     main()
