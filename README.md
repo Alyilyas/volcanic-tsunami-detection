@@ -230,7 +230,7 @@ python code/AR_lag_validation.py
 # To generate the Threshold (T1)
 python code/generate_spectral_threshold.py
 ```
-```
+```bash
 # The threshold output would be like this:
 Threshold table (pivoted format):
 Component     BHE     BHN     BHZ
