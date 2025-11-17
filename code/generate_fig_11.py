@@ -19,11 +19,11 @@ CONFIG = {
     "pred_points": 200,  # Points for AR model prediction window
     "analysis_window": 200,  # Points for the final analysis window (bootstrap/FFT)
     "step": 200,  # Step size (200 for non-overlapping, <200 for overlapping, 20 for overlapping with 1s step)
-    "n_bootstrap": 100,  # Number of bootstrap iterations, pls change to 10000
+    "n_bootstrap": 1000,  # Number of bootstrap iterations, pls change to 10000
     "target_frequency": 0.1,  # Target frequency in Hz for FFT analysis
 
     # File and data parameters
-    "station": 'SBJI',
+    "station": 'CGJI',
     "component": 'BHE',
     "motion_type": 'd',  # 'd' for displacement, 'v' for velocity, 'a' for acceleration
     #"data_dir": Path("."),  # Assumes data files are in the same directory as the script

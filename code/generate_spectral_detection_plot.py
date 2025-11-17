@@ -26,7 +26,7 @@ CONFIG = {
     "components_list": ['BHE', 'BHN', 'BHZ'],
     "motion_type": 'd',  # 'd' for displacement
     "data_dir": Path("data"),  # Assumes data files are in the data/ folder
-    "save_dir": Path("output/figures"),
+    "save_dir": Path("output/figures/Detection_Supplementary"),
 
     # --- AR Lag Lookup Table (from Manuscript Table 1) ---
     "AR_LAG_TABLE": {
