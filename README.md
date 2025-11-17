@@ -198,8 +198,6 @@ These scripts are designed to be run directly. From your activated terminal, run
 # To generate Figure 5 (relevant frequency)
 python code/relevant_frequency.py
 ```
-![Workflow flowchart of the offline and online settings](./output/figures/SI_Figure_FFT_Station_CGJI.png)
-
 <p align="center">
   <img src="./output/figures/SI_Figure_FFT_Station_CGJI.png" width="400">
 </p>
