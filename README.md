@@ -215,7 +215,7 @@ python code/optimal_window_size.py
 python code/optimal_AR_lag.py
 ```
 <p align="center">
-  <img src="./output/figures/SI_Figure_AR_lag_Station_CGJI.png" width="1200">
+  <img src="./output/figures/SI_Figure_AR_Lag_Station_CGJI.png" width="1200">
 </p>
 ```bash
 # To generate Figure 10 (ACF validation)
