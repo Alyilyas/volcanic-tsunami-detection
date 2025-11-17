@@ -12,8 +12,8 @@ CONFIG = {
 
     # File and data parameters
     # You can specify a single string OR a list
-    "stations": ['CGJI', 'LWLI', 'MDSI', 'SBJI'], #or "SBJI", for a single station
-    "components": ['BHE', 'BHN', 'BHZ'], #or "BHE", for a single component
+    "stations": "CGJI", #['CGJI', 'LWLI', 'MDSI', 'SBJI'], #or "SBJI", for a single station
+    "components": "BHE",#['BHE', 'BHN', 'BHZ'], #or "BHE", for a single component
     "events": {
         # for a single event
         #"Flank collapse": ""
@@ -25,7 +25,7 @@ CONFIG = {
     },
     "file_prefix": "d",
     "data_dir": Path("data"),
-    "save_dir": Path("output/figures/FFT_Supplementary"),
+    "save_dir": Path("output/figures"),
 
     # Plotting parameters
     "figsize_base": (8, 5),  # base size per subplot (width, height)
