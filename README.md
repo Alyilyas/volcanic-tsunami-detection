@@ -244,7 +244,8 @@ The resulting plot will be saved in the `/output/figures` directory.
 
 | Figure | Script to Run | Configuration & Notes |
 | :--- | :--- | :--- |
-| **Fig. 5** (FFT) | `python code/relevant_frequency.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
+| **Fig. 5** (FFT) | `python code/genereate_fig_5.py` | Run script directly.|
+| **Supplementary (S1)** (FFT) | `python code/relevant_frequency.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
 | **Fig. 6** (BIC) | `python code/optimal_window_size.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
 | **Fig. 9** (AR Lag) | `python code/optimal_AR_lag.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
 | **Fig. 10** (ACF) | `python code/AR_lag_validation.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
