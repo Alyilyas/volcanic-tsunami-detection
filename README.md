@@ -207,7 +207,7 @@ python code/relevant_frequency.py
 python code/optimal_window_size.py
 ```
 <p align="center">
-  <img src="./output/figures/SI_Figure_BIC_Station_CGJI" width="400">
+  <img src="./output/figures/SI_Figure_BIC_Station_CGJI.png" width="400">
 </p>
 ```
 # To generate Figure 9 (AR lag)
