@@ -269,7 +269,7 @@ The resulting plot will be saved in the `/output/figures` directory.
 
 ### ➡️ Figure reproduction table
 
-| Figure | Script to Run | Configuration & Notes |
+| Figure | Script to run | Configuration & notes |
 | :--- | :--- | :--- |
 | **Fig. 5** (FFT) | `python code/genereate_fig_5.py` | Run script directly.|
 | **Supplementary (S1)** (FFT) | `python code/relevant_frequency.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
