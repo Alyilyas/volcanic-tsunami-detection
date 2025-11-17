@@ -275,20 +275,20 @@ The resulting plot will be saved in the `/output/figures` directory.
 | Figure | Script to run | Configuration & notes |
 | :--- | :--- | :--- |
 | **Fig. 5** (FFT) | `python code/genereate_fig_5.py` | Run script directly.|
-| **Supplementary (S1)** (FFT) | `python code/relevant_frequency.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
+| **Supplementary (A)** (FFT) | `python code/relevant_frequency.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
 | **Fig. 6** (BIC) | `python code/generate_fig_6.py` | Run script directly.|
-| **Supplementary (S2)** (BIC) | `python code/optimal_window_size.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
+| **Supplementary (B)** (BIC) | `python code/optimal_window_size.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
 | **Fig. 9** (AR Lag) | `python code/generate_fig_9.py` | Run script directly.|
-| **Supplementary (S3)** (AR Lag) | `python code/optimal_AR_lag.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
+| **Supplementary (C)** (AR Lag) | `python code/optimal_AR_lag.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
 | **Fig. 10** (ACF) | `python code/AR_lag_validation.py` | Run script directly.|
-| **Supplementary (S4)** (ACF) | `python code/AR_lag_validation.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
+| **Supplementary (D)** (ACF) | `python code/AR_lag_validation.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
 | **T1** (Threshold Table) | `python code/generate_spectral_threshold.py` | Run script directly. Runs the full analysis for **all** stations/components with `n_bootstrap: 10000`.<br/>Saves results to `output/detection_threshold_table.csv`.<br/>**(Note: This is computationally intensive.)** |
 | **Quick test for T1**| `python code/generate_spectral_threshold_test.py` | Run script directly. A fast, low-quality test using `n_bootstrap: 100`.<br/>Use this to verify the script runs without errors. |
 | **Fig. 11** | `python code/generate_fig_11.py` | Run script directly. Pre-configured to reproduce Figure 11 (non-overlapping windows, `step: 200`). |
 | **Fig. 12** | `python code/generate_fig_12.py` | Run script directly. Pre-configured to reproduce Figure 12 (1-second overlapping windows, `step: 20`). |
 | **Fig. 14** (Ruang) | `python code/generate_spectral_detection_plot_ruang.py` | Run script directly. This is a separate, pre-configured validation script for the Ruang volcano. |
-| **Supplementary (S5)** (All Plots) | `python code/generate_spectral_detection_plot.py` | Run script directly. This script automatically runs the full analysis for **all 12 station-component pairs**.<br/>Generates all 12 plots for the appendix in `/output/figures/`.<br/>Uses the manuscript's `threshold_percentile: 99.9`.<br/>**(Note: This is computationally intensive.)** |
-| **Quick test for S5** (All Plots) | `python code/generate_spectral_detection_plot_quick_test.py` | Run script directly. A fast, low-quality test of the main appendix script, using `n_bootstrap: 100`.<br/>Use this to verify the full batch analysis runs without errors. |
+| **Supplementary (E)** (All Plots) | `python code/generate_spectral_detection_plot.py` | Run script directly. This script automatically runs the full analysis for **all 12 station-component pairs**.<br/>Generates all 12 plots for the appendix in `/output/figures/`.<br/>Uses the manuscript's `threshold_percentile: 99.9`.<br/>**(Note: This is computationally intensive.)** |
+| **Quick test for E** (All Plots) | `python code/generate_spectral_detection_plot_quick_test.py` | Run script directly. A fast, low-quality test of the main appendix script, using `n_bootstrap: 100`.<br/>Use this to verify the full batch analysis runs without errors. |
 
 ---
 ## 📚 References
