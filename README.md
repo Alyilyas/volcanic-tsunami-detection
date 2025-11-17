@@ -286,7 +286,7 @@ The resulting plot will be saved in the `/output/figures` directory.
 | **Quick test for T1**| `python code/generate_spectral_threshold_test.py` | Run script directly. A fast, low-quality test using `n_bootstrap: 100`.<br/>Use this to verify the script runs without errors. |
 | **Fig. 11** | `python code/generate_fig_11.py` | Run script directly. Pre-configured to reproduce Figure 11 (non-overlapping windows, `step: 200`). |
 | **Fig. 12** | `python code/generate_fig_12.py` | Run script directly. Pre-configured to reproduce Figure 12 (1-second overlapping windows, `step: 20`). |
-| **Fig. 14** (Ruang) | `python code/generate_spectral_detection_plot_ruang.py` | Run script directly. This is a separate, pre-configured validation script for the Ruang volcano. |
+| **Fig. 14** (Ruang volcano) | `python code/generate_spectral_detection_plot_ruang.py` | Run script directly. This is a separate, pre-configured validation script for **the Ruang volcano.** |
 | **Supplementary (E)** (All Plots) | `python code/generate_spectral_detection_plot.py` | Run script directly. This script automatically runs the full analysis for **all 12 station-component pairs**.<br/>Generates all 12 plots for the appendix in `/output/figures/`.<br/>Uses the manuscript's `threshold_percentile: 99.9`.<br/>**(Note: This is computationally intensive.)** |
 | **Quick test for E** (All Plots) | `python code/generate_spectral_detection_plot_quick_test.py` | Run script directly. A fast, low-quality test of the main appendix script, using `n_bootstrap: 100`.<br/>Use this to verify the full batch analysis runs without errors. |
 
