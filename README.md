@@ -288,7 +288,7 @@ The resulting plot will be saved in the `/output/figures` directory.
 | **Fig. 12** | `python code/generate_fig_12.py` | Run script directly. Pre-configured to reproduce Figure 12 (1-second overlapping windows, `step: 20`). |
 | **Fig. 14** (Ruang) | `python code/generate_spectral_detection_plot_ruang.py` | Run script directly. This is a separate, pre-configured validation script for the Ruang volcano. |
 | **Supplementary (S5)** (All Plots) | `python code/generate_spectral_detection_plot.py` | Run script directly. This script automatically runs the full analysis for **all 12 station-component pairs**.<br/>Generates all 12 plots for the appendix in `/output/figures/`.<br/>Uses the manuscript's `threshold_percentile: 99.9`.<br/>**(Note: This is computationally intensive.)** |
-| **Quick test for S3** (All Plots) | `python code/generate_spectral_detection_plot_quick_test.py` | Run script directly. A fast, low-quality test of the main appendix script, using `n_bootstrap: 100`.<br/>Use this to verify the full batch analysis runs without errors. |
+| **Quick test for S5** (All Plots) | `python code/generate_spectral_detection_plot_quick_test.py` | Run script directly. A fast, low-quality test of the main appendix script, using `n_bootstrap: 100`.<br/>Use this to verify the full batch analysis runs without errors. |
 
 ---
 ## 📚 References
