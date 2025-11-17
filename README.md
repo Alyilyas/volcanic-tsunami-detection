@@ -202,20 +202,23 @@ python code/relevant_frequency.py
   <img src="./output/figures/SI_Figure_FFT_Station_CGJI.png" width="400">
 </p>
 
-```
+```bash
 # To generate Figure 6 (optimal window size)
 python code/optimal_window_size.py
 ```
 <p align="center">
   <img src="./output/figures/SI_Figure_BIC_Station_CGJI.png" width="1200">
 </p>
-```
+
+```bash
 # To generate Figure 9 (AR lag)
 python code/optimal_AR_lag.py
-
+```
+```bash
 # To generate Figure 10 (ACF validation)
 python code/AR_lag_validation.py
-
+```
+```bash
 # To generate the Threshold (T1)
 python code/generate_spectral_threshold.py
 ```
