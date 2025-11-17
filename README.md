@@ -218,11 +218,13 @@ python code/optimal_AR_lag.py
   <img src="./output/figures/SI_Figure_AR_Lag_Station_CGJI.png" width="1200">
 </p>
 
-
 ```bash
 # To generate Figure 10 (ACF validation)
 python code/AR_lag_validation.py
 ```
+<p align="center">
+  <img src="./output/figures/SI_Figure_ACF_Validation_Station_CGJI.png" width="1200">
+</p>
 ```bash
 # To generate the Threshold (T1)
 python code/generate_spectral_threshold.py
