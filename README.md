@@ -200,6 +200,9 @@ python code/relevant_frequency.py
 ```
 ![Workflow flowchart of the offline and online settings](./output/figures/SI_Figure_FFT_Station_CGJI.png)
 
+<p align="center">
+  <img src="./output/figures/SI_Figure_FFT_Station_CGJI.png" width="400">
+</p>
 
 ```
 # To generate Figure 6 (optimal window size)
