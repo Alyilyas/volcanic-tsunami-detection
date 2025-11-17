@@ -230,6 +230,17 @@ python code/AR_lag_validation.py
 # To generate the Threshold (T1)
 python code/generate_spectral_threshold.py
 ```
+```bash
+# The threshold output would be like this:
+Threshold table (pivoted format):
+Component     BHE     BHN     BHZ
+Station                          
+CGJI      0.00022 0.00027 0.00014
+LWLI      0.00014 0.00011 0.00008
+MDSI      0.00005 0.00007 0.00005
+SBJI      0.00032 0.00028 0.00019
+```
+
 (Note: You need to edit the `CONFIG` at the top of each script if you want to run the script at specific stations, components, etc.)
 
 #### Part 2: spectral detection
