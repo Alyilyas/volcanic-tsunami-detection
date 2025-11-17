@@ -265,7 +265,8 @@ The resulting plot will be saved in the `/output/figures` directory.
 | **Supplementary (S2)** (BIC) | `python code/optimal_window_size.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
 | **Fig. 9** (AR Lag) | `python code/generate_fig_9.py` | Run script directly.|
 | **Supplementary (S3)** (AR Lag) | `python code/optimal_AR_lag.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
-| **Fig. 10** (ACF) | `python code/AR_lag_validation.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
+| **Fig. 10** (ACF) | `python code/AR_lag_validation.py` | Run script directly.|
+| **Supplementary (S4)** (ACF) | `python code/AR_lag_validation.py` | Run script directly.<br/>**Edit `CONFIG` to select data:**<br/>`"stations": ['SBJI', 'CGJI', ...]`<br/>`"components": ['BHE', 'BHN', ...]` |
 | **T1** (Threshold Table) | `python code/generate_spectral_threshold.py` | Run script directly. Runs the full analysis for **all** stations/components with `n_bootstrap: 10000`.<br/>Saves results to `output/detection_threshold_table.csv`.<br/>**(Note: This is computationally intensive.)** |
 | **Quick test for T1**| `python code/generate_spectral_threshold_test.py` | Run script directly. A fast, low-quality test using `n_bootstrap: 100`.<br/>Use this to verify the script runs without errors. |
 | **Fig. 11** | `python code/generate_fig_11.py` | Run script directly. Pre-configured to reproduce Figure 11 (non-overlapping windows, `step: 200`). |
