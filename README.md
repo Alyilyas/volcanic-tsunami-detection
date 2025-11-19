@@ -23,13 +23,21 @@ The code in this repository is designed to reproduce these key figures. The **"M
 ## 📂 Repository structure
 
 -   `/code`: Contains all Python scripts for the analysis.
-    -   `relevant_frequency.py`: Generates Figure 5 (FFT).
-    -   `optimal_window_size.py`: Generates Figure 6 (BIC).
-    -   `optimal_AR_lag.py`: Generates Figure 9 (AR Lag).
-    -   `AR_lag_validation.py`: Generates Figure 10 (ACF Validation).
-    -   `generate_spectral_threshold.py`: Generates threshold (T1).
-    -   `generate_spectral_detection_plot.py`: Generates Figure 11 & 12 (Main validation).
-    -   `generate_spectral_detection_plot_ruang.py`: (Optional) An alternative validation script for ruang volcano (Figure 14).
+    - `relevant_frequency.py`: Supplementary (A) FFT - Generates figures for optimal frequency band selection.
+    - `optimal_window_size.py`: Supplementary (B) BIC - Generates figures for optimal window size selection.
+    - `optimal_AR_lag.py`: Supplementary (C) AR Lag - Generates figures for optimal Autoregressive (AR) model lag.
+    - `AR_lag_validation.py`: Supplementary (D) ACF Validation - Generates figures for AR model validation using the Autocorrelation Function (ACF).
+    - `generate_spectral_threshold.py`: T1 (Threshold) - Generates the full spectral detection threshold table.
+    - `generate_spectral_threshold_test.py`: Quick T1 Test - Generates a fast, low-quality test for the threshold table script.
+    - `generate_spectral_detection_plot.py`: Supplementary (E) All Plots - Generates all 12 validation plots for the appendix.
+    - `generate_spectral_detection_plot_quick_test.py`: Quick E Test - Generates a fast, low-quality test of the main appendix script.
+    - `generate_spectral_detection_plot_ruang.py`: Fig. 14 (Ruang) - Generates the Ruang volcano validation plot.
+    - `generate_fig_5.py`: Fig. 5 (FFT) - Generates the main Figure 5.
+    - `generate_fig_6.py`: Fig. 6 (BIC) - Generates the main Figure 6.
+    - `generate_fig_9.py`: Fig. 9 (AR Lag) - Generates the main Figure 9.
+    - `generate_fig_10.py`: Fig. 10 (ACF) - Generates the main Figure 10.
+    - `generate_fig_11.py`: Fig. 11 - Generates the main Figure 11.
+    - `generate_fig_12.py`: Fig. 12 - Generates the main Figure 12.
 -   `/data`: Contains the sample dataset used to run the analysis.
 -   `/output/figures`: The default directory where generated figures are saved.
 -   `requirements.txt`: The file listing all required Python packages for reproducibility.
