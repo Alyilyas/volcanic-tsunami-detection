@@ -204,7 +204,7 @@ These scripts are designed to be run directly. From your activated terminal, run
 
 **1.** To generate Figure 5 (relevant frequency):
 ```bash
-python code/relevant_frequency.py
+python code/genereate_fig_5.py
 ```
 <p align="center">
   <img src="./output/figures/SI_Figure_FFT_Station_CGJI.png" width="400">
@@ -212,7 +212,7 @@ python code/relevant_frequency.py
 
 **2.** To generate Figure 6 (optimal window size):
 ```bash
-python code/optimal_window_size.py
+python code/genereate_fig_6.py
 ```
 <p align="center">
   <img src="./output/figures/SI_Figure_BIC_Station_CGJI.png" width="1200">
@@ -220,7 +220,7 @@ python code/optimal_window_size.py
 
 **3.** To generate Figure 9 (AR lag):
 ```bash
-python code/optimal_AR_lag.py
+python code/genereate_fig_9.py
 ```
 <p align="center">
   <img src="./output/figures/SI_Figure_AR_Lag_Station_CGJI.png" width="1200">
@@ -228,7 +228,7 @@ python code/optimal_AR_lag.py
 
 **4.** To generate Figure 10 (ACF validation):
 ```bash
-python code/AR_lag_validation.py
+python code/genereate_fig_10.py
 ```
 <p align="center">
   <img src="./output/figures/SI_Figure_ACF_Validation_Station_CGJI.png" width="1200">
